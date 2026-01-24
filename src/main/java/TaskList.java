@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class TaskList {
-    private static Task[] tasks = new Task[100];
-    private static int index = 0;
+    private static final Integer CAPACITY = 100;
+    private static List<Task> tasks = new ArrayList<>();
 
     private static boolean isNumeric(String str) {
         if (str == null) {
@@ -17,7 +20,7 @@ public class TaskList {
     public String addTask(String argument, TaskType type) throws InvalidPatternException, RequestRejectedException, MissingComponentException {
         if (argument.isEmpty()) {
             throw new InvalidPatternException("Please specify more details:)");
-        } else if (index >= tasks.length) {
+        } else if (tasks.size() >= CAPACITY) {
             throw new RequestRejectedException("Task list is full, cannot add new task:(");
         } else {
             Task newTask = null;
@@ -69,7 +72,6 @@ public class TaskList {
                     String endTime = eventTaskParts[2].trim();
 
                     // Error Handling: Empty Components
-
                     if (eventTaskContent.isEmpty()) {
                         String errMsg = "Please specify task content:)";
                         throw new MissingComponentException(errMsg);
@@ -84,45 +86,61 @@ public class TaskList {
                     newTask = new EventTask(eventTaskContent, startTime, endTime);
             }
 
-            tasks[index] = newTask;
-            index++;
+            tasks.add(newTask);
             String taskView = newTask.printTask();
 
-            return String.format("Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list:)", taskView, index);
+            return String.format("Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list:)", taskView, tasks.size());
         }
     }
 
     public String printList() {
-        if (index == 0) {
+        if (tasks.isEmpty()) {
             return "No task in the list yet:)\n";
         }
 
         StringBuilder taskListView = new StringBuilder();
         taskListView.append(" Here are the tasks in your list:\n");
-        for (int i = 0; i < index; i++) {
-            String taskView = String.format(" %d.%s\n", i + 1, tasks[i].printTask());
+        for (int i = 0; i < tasks.size(); i++) {
+            String taskView = String.format(" %d.%s\n", i + 1, tasks.get(i).printTask());
             taskListView.append(taskView);
         }
         return taskListView.toString();
     }
 
     public String mark(String argument) throws InvalidPatternException {
-        if (argument.isEmpty() || !TaskList.isNumeric(argument) || Integer.parseInt(argument.trim()) > index) {
-            throw new InvalidPatternException("Please specify the valid task number to mark:(");
+        if (argument.isEmpty()
+            || !TaskList.isNumeric(argument)
+            || Integer.parseInt(argument.trim()) > tasks.size()) {
+                throw new InvalidPatternException("Please specify the valid task number to mark:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
-            tasks[taskNum - 1].mark();
-            return String.format(" Nice! I've marked this task as done:\n \t%s", tasks[taskNum - 1].printTask());
+            tasks.get(taskNum - 1).mark();
+            return String.format(" Nice! I've marked this task as done:\n \t%s", tasks.get(taskNum - 1).printTask());
         }
     }
 
     public String unmark(String argument) throws InvalidPatternException {
-        if (argument.isEmpty() || !TaskList.isNumeric(argument) || Integer.parseInt(argument.trim()) > index) {
-            throw new InvalidPatternException("Please specify the valid task number to unmark:(");
+        if (argument.isEmpty()
+            || !TaskList.isNumeric(argument)
+            || Integer.parseInt(argument.trim()) > tasks.size()) {
+                throw new InvalidPatternException("Please specify the valid task number to unmark:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
-            tasks[taskNum - 1].unmark();
-            return String.format(" OK, I've marked this task as not done yet:\n \t%s", tasks[taskNum - 1].printTask());
+            tasks.get(taskNum - 1).unmark();
+            return String.format(" OK, I've marked this task as not done yet:\n \t%s", tasks.get(taskNum - 1).printTask());
+        }
+    }
+
+    public String delete(String argument) throws InvalidPatternException {
+        if (argument.isEmpty()
+            || !TaskList.isNumeric(argument)
+            || Integer.parseInt(argument.trim()) > tasks.size()) {
+                throw new InvalidPatternException("Please specify the valid task number to delete:(");
+        } else {
+            int taskNum = Integer.parseInt(argument.trim());
+            String taskView =  tasks.get(taskNum - 1).printTask();
+            tasks.remove(taskNum - 1);
+            return String.format(" Noted. I've removed this task:\n \t%s\n Now you have %d tasks in the list.", taskView, tasks.size());
         }
     }
 }

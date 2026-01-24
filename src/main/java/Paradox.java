@@ -89,6 +89,17 @@ public class Paradox {
                         System.out.print(errMsg.indent(6));
                     }
                     break;
+                case "delete":
+                    // Delete a task
+                    try {
+                        String deleteResult = taskList.delete(argument);
+                        String deleteMsg = String.format("%s\n%s\n%s", horizontalLine, deleteResult, horizontalLine);
+                        System.out.print(deleteMsg.indent(6));
+                    } catch (InvalidPatternException e) {
+                        String errMsg = String.format("%s\n%s\n%s", horizontalLine, e.getMessage(), horizontalLine);
+                        System.out.print(errMsg.indent(6));
+                    }
+                    break;
                 default:
                     // Not supported Commands
                     String defaultMsg = String.format("%s\n %s\n%s", horizontalLine, "Invalid Command:(", horizontalLine);

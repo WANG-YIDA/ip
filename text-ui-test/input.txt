@@ -5,5 +5,16 @@ list
 mark 2
 list
 unmark 2
-dance
+mark
+mark x
+mark 10
+todo
+deadline finish
+event party /from 19:00
+todo buy milk
+delete 10
+delete 4
+list
+mark 1
+mark 1
 bye
