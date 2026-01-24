@@ -27,16 +27,16 @@ public class TaskList {
                     break;
                 case DEADLINE:
                     String[] deadlineTaskParts = argument.split(" /by ");
-                    String deadlineTaskContent = deadlineTaskParts[0];
-                    String deadline = deadlineTaskParts[1];
+                    String deadlineTaskContent = deadlineTaskParts[0].trim();
+                    String deadline = deadlineTaskParts[1].trim();
 
                     newTask = new DeadlineTask(deadlineTaskContent, deadline);
                     break;
                 case EVENT:
                     String[] eventTaskParts = argument.split(" /from | /to ");
-                    String eventTaskContent = eventTaskParts[0];
-                    String startTime = eventTaskParts[1];
-                    String endTime = eventTaskParts[2];
+                    String eventTaskContent = eventTaskParts[0].trim();
+                    String startTime = eventTaskParts[1].trim();
+                    String endTime = eventTaskParts[2].trim();
 
                     newTask = new EventTask(eventTaskContent, startTime, endTime);
             }
@@ -44,7 +44,7 @@ public class TaskList {
             index++;
             String taskView = newTask.printTask();
 
-            return String.format("Got it. I've added this task:\n\t%s\n Now you have %d tasks in the list.", taskView, index);
+            return String.format("Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list.", taskView, index);
         }
     }
 
