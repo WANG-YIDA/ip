@@ -14,15 +14,37 @@ public class TaskList {
         }
     }
 
-    public String addTask(String taskContent) {
+    public String addTask(String argument, TaskType type) {
         if (index >= tasks.length) {
             return "Task list is full, cannot add new task:(";
         } else {
-            Task newTask = new Task(taskContent);
+            Task newTask = null;
+            switch (type) {
+                case TODO:
+                    String todoTaskContent = argument;
+
+                    newTask = new TodoTask(todoTaskContent);
+                    break;
+                case DEADLINE:
+                    String[] deadlineTaskParts = argument.split(" /by ");
+                    String deadlineTaskContent = deadlineTaskParts[0];
+                    String deadline = deadlineTaskParts[1];
+
+                    newTask = new DeadlineTask(deadlineTaskContent, deadline);
+                    break;
+                case EVENT:
+                    String[] eventTaskParts = argument.split(" /from | /to ");
+                    String eventTaskContent = eventTaskParts[0];
+                    String startTime = eventTaskParts[1];
+                    String endTime = eventTaskParts[2];
+
+                    newTask = new EventTask(eventTaskContent, startTime, endTime);
+            }
             tasks[index] = newTask;
             index++;
+            String taskView = newTask.printTask();
 
-            return String.format("Task Added: %s", taskContent);
+            return String.format("Got it. I've added this task:\n\t%s\n Now you have %d tasks in the list.", taskView, index);
         }
     }
 

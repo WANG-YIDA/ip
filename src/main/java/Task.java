@@ -1,16 +1,11 @@
-public class Task {
-    private String taskContent;
+public abstract class Task {
     private Boolean done;
 
-    Task(String taskContent) {
-        this.taskContent = taskContent;
+    Task() {
         this.done = false;
     }
 
-    public String printTask() {
-        String checkbox = done ? " [x] " : " [ ] ";
-        return checkbox + taskContent;
-    }
+    public abstract String printTask();
 
     public void mark() {
         this.done = true;
@@ -18,5 +13,9 @@ public class Task {
 
     public void unmark() {
         this.done = false;
+    }
+
+    public String printCheckBox() {
+        return done ? "[x]" : "[ ]";
     }
 }

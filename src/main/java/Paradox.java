@@ -35,20 +35,38 @@ public class Paradox {
                     System.out.println(listMsg.indent(6));
                     break;
                 case "mark":
+                    // Mark a task as done
                     String markResult = taskList.mark(argument);
                     String markMsg = String.format("%s\n%s\n%s", horizontalLine, markResult, horizontalLine);
                     System.out.println(markMsg.indent(6));
                     break;
                 case "unmark":
+                    // Mark a task as undone
                     String unmarkResult = taskList.unmark(argument);
                     String unmarkMsg = String.format("%s\n%s\n%s", horizontalLine, unmarkResult, horizontalLine);
                     System.out.println(unmarkMsg.indent(6));
                     break;
+                case "todo":
+                    // Add task of type To-do
+                    String addTodoTaskResult = taskList.addTask(argument, TaskType.TODO);
+                    String addTodoTaskMsg = String.format("%s\n %s\n%s", horizontalLine, addTodoTaskResult, horizontalLine);
+                    System.out.println(addTodoTaskMsg.indent(6));
+                    break;
+                case "deadline":
+                    // Add task of type Deadline
+                    String addDeadlineTaskResult = taskList.addTask(argument, TaskType.DEADLINE);
+                    String addDeadlineTaskMsg = String.format("%s\n %s\n%s", horizontalLine, addDeadlineTaskResult, horizontalLine);
+                    System.out.println(addDeadlineTaskMsg.indent(6));
+                    break;
+                case "event":
+                    // Add task of type Event
+                    String addEventTaskResult = taskList.addTask(argument, TaskType.EVENT);
+                    String addEventTaskMsg = String.format("%s\n %s\n%s", horizontalLine, addEventTaskResult, horizontalLine);
+                    System.out.println(addEventTaskMsg.indent(6));
                 default:
-                    // Store user task
-                    String addTaskResult = taskList.addTask(userInput);
-                    String addTaskMsg = String.format("%s\n %s\n%s", horizontalLine, addTaskResult, horizontalLine);
-                    System.out.println(addTaskMsg.indent(6));
+                    // Not supported Commands
+                    String defaultMsg = String.format("%s\n %s\n%s", horizontalLine, "Invalid Command", horizontalLine);
+                    System.out.println(defaultMsg.indent(6));
             }
 
             // Read next user input
