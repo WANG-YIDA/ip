@@ -1,7 +1,9 @@
+package app.model;
+
 public abstract class Task {
     private Boolean done;
 
-    Task() {
+    public Task() {
         this.done = false;
     }
 

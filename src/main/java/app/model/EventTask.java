@@ -1,9 +1,11 @@
+package app.model;
+
 public class EventTask extends Task {
     String taskContent;
     String startTime;
     String endTime;
 
-    EventTask(String taskContent, String startTime, String endTime) {
+    public EventTask(String taskContent, String startTime, String endTime) {
         super();
         this.taskContent = taskContent;
         this.startTime = startTime;

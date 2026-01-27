@@ -1,5 +1,7 @@
+package app.exception;
+
 public class RequestRejectedException extends Exception {
-    RequestRejectedException(String msg) {
+    public RequestRejectedException(String msg) {
         super(msg);
     }
 }

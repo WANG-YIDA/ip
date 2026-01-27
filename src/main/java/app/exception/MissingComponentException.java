@@ -1,5 +1,7 @@
+package app.exception;
+
 public class MissingComponentException extends Exception {
-    MissingComponentException(String msg) {
+    public MissingComponentException(String msg) {
         super(msg);
     }
 }

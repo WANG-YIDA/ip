@@ -1,5 +1,7 @@
+package app.exception;
+
 public class InvalidPatternException extends Exception {
-    InvalidPatternException(String msg) {
+    public InvalidPatternException(String msg) {
         super(msg);
     }
 }

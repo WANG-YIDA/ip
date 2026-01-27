@@ -1,8 +1,10 @@
+package app.model;
+
 public class DeadlineTask extends Task {
     String taskContent;
     String deadline;
 
-    DeadlineTask(String taskContent, String deadline) {
+    public DeadlineTask(String taskContent, String deadline) {
         super();
         this.taskContent = taskContent;
         this.deadline = deadline;
