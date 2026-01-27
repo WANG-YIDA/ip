@@ -3,11 +3,20 @@ package app.model;
 public abstract class Task {
     private Boolean done;
 
+    public Task(Boolean done) {
+        this.done = done;
+    }
+
     public Task() {
         this.done = false;
     }
 
     public abstract String printTask();
+    public abstract String printStorageString();
+
+    public String printStorageString(String partialStr) {
+        return done ? "1/" + partialStr : "0/" + partialStr;
+    }
 
     public void mark() {
         this.done = true;
@@ -20,4 +29,5 @@ public abstract class Task {
     public String printCheckBox() {
         return done ? "[x]" : "[ ]";
     }
+
 }

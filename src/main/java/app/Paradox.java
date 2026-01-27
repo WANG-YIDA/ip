@@ -6,15 +6,28 @@ import app.exception.RequestRejectedException;
 import app.model.TaskList;
 import app.model.TaskType;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.zip.DataFormatException;
 
 public class Paradox {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String horizontalLine = "----------------------------------------------";
+        String horizontalLine = "---------------------------------------------------";
 
-        TaskList taskList = new TaskList();
+        // create a task list and specific read source and write destination
+        TaskList taskList = null;
+        try {
+            String taskListPath = "./src/main/data/taskList.txt";
+            taskList = new TaskList(taskListPath);
+        } catch (FileNotFoundException | DataFormatException e) {
+            String errMsg = String.format("%s\n Error: %s. Please try again later:(\n%s\n", horizontalLine, e.getMessage(), horizontalLine);
+            System.out.print(errMsg.indent(6));
+
+            System.exit(0);
+        }
 
         // Print welcome message
         String welcomeMessage = String.format("%s\n Hi! I'm %s!\n What can I do for you:)\n%s\n", horizontalLine, "Paradox", horizontalLine);
@@ -47,7 +60,7 @@ public class Paradox {
                     String markResult = taskList.mark(argument);
                     String markMsg = String.format("%s\n%s\n%s", horizontalLine, markResult, horizontalLine);
                     System.out.print(markMsg.indent(6));
-                } catch (InvalidPatternException e) {
+                } catch (InvalidPatternException | IOException e) {
                     String errMsg = String.format("%s\n%s\n%s", horizontalLine, e.getMessage(), horizontalLine);
                     System.out.print(errMsg.indent(6));
                 }
@@ -58,7 +71,7 @@ public class Paradox {
                     String unmarkResult = taskList.unmark(argument);
                     String unmarkMsg = String.format("%s\n%s\n%s", horizontalLine, unmarkResult, horizontalLine);
                     System.out.print(unmarkMsg.indent(6));
-                } catch (InvalidPatternException e) {
+                } catch (InvalidPatternException | IOException e) {
                     String errMsg = String.format("%s\n%s\n%s", horizontalLine, e.getMessage(), horizontalLine);
                     System.out.print(errMsg.indent(6));
                 }
@@ -69,7 +82,7 @@ public class Paradox {
                     String addTodoTaskResult = taskList.addTask(argument, TaskType.TODO);
                     String addTodoTaskMsg = String.format("%s\n %s\n%s", horizontalLine, addTodoTaskResult, horizontalLine);
                     System.out.print(addTodoTaskMsg.indent(6));
-                } catch (InvalidPatternException | MissingComponentException | RequestRejectedException e) {
+                } catch (InvalidPatternException | MissingComponentException | RequestRejectedException | IOException e) {
                     String errMsg = String.format("%s\n%s\n%s", horizontalLine, e.getMessage(), horizontalLine);
                     System.out.print(errMsg.indent(6));
                 }
@@ -80,7 +93,7 @@ public class Paradox {
                     String addDeadlineTaskResult = taskList.addTask(argument, TaskType.DEADLINE);
                     String addDeadlineTaskMsg = String.format("%s\n %s\n%s", horizontalLine, addDeadlineTaskResult, horizontalLine);
                     System.out.print(addDeadlineTaskMsg.indent(6));
-                } catch (InvalidPatternException | MissingComponentException | RequestRejectedException e) {
+                } catch (InvalidPatternException | MissingComponentException | RequestRejectedException | IOException e) {
                     String errMsg = String.format("%s\n%s\n%s", horizontalLine, e.getMessage(), horizontalLine);
                     System.out.print(errMsg.indent(6));
                 }
@@ -91,7 +104,7 @@ public class Paradox {
                     String addEventTaskResult = taskList.addTask(argument, TaskType.EVENT);
                     String addEventTaskMsg = String.format("%s\n %s\n%s", horizontalLine, addEventTaskResult, horizontalLine);
                     System.out.print(addEventTaskMsg.indent(6));
-                } catch (InvalidPatternException | MissingComponentException | RequestRejectedException e) {
+                } catch (InvalidPatternException | MissingComponentException | RequestRejectedException | IOException e) {
                     String errMsg = String.format("%s\n%s\n%s", horizontalLine, e.getMessage(), horizontalLine);
                     System.out.print(errMsg.indent(6));
                 }
@@ -102,7 +115,7 @@ public class Paradox {
                     String deleteResult = taskList.delete(argument);
                     String deleteMsg = String.format("%s\n%s\n%s", horizontalLine, deleteResult, horizontalLine);
                     System.out.print(deleteMsg.indent(6));
-                } catch (InvalidPatternException e) {
+                } catch (InvalidPatternException | IOException e) {
                     String errMsg = String.format("%s\n%s\n%s", horizontalLine, e.getMessage(), horizontalLine);
                     System.out.print(errMsg.indent(6));
                 }
