@@ -15,7 +15,7 @@ public class Paradox {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String horizontalLine = "---------------------------------------------------";
+        String horizontalLine = "----------------------------------------------------------------";
 
         // create a task list and specific read source and write destination
         TaskList taskList = null;
