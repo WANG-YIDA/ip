@@ -1,112 +1,28 @@
 package app.model;
 
+import app.dataaccess.TaskListStorage;
 import app.exception.InvalidPatternException;
 import app.exception.MissingComponentException;
 import app.exception.RequestRejectedException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
 public class TaskList {
     private final Integer CAPACITY = 100;
     private File taskListFile;
-    private List<Task> tasks = new ArrayList<>();
+    private List<Task> tasks;
 
     public TaskList(String taskListPath) throws FileNotFoundException, DataFormatException {
         this.taskListFile = new File(taskListPath);
 
-        if (!taskListFile.exists()) {
-            throw new FileNotFoundException("Task List Not Found");
-        }
-
-        // load tasks from source file
-        Scanner scanner = new Scanner(taskListFile);
-        while (scanner.hasNext()) {
-            String taskString = scanner.nextLine();
-            taskParser(taskString);
-        }
+        // load task list from source file
+        this.tasks = TaskListStorage.readTaskList(taskListFile);
     }
 
-    /**
-     * Parse each component of the task stored in source file, create corresponding task with these components and store the task in list.
-     * Storage Pattern: Done/TaskType/TaskContent/Deadline(if applicable)/StartTime(if applicable)/EndTime(if applicable).
-     * @param taskStorageStr the string representation of the task in persistent storage.
-     */
-    private void taskParser(String taskStorageStr) throws DataFormatException {
-        String[] parts = taskStorageStr.split("/", 6);
-        Boolean done = (Integer.parseInt(parts[0].trim(), 10) == 1);
-        String taskContent = parts[2].trim();
-        String deadline = parts[3].trim();
-        String startTime = parts[4].trim();
-        String endTime = parts[5].trim();
-
-        Task taskToADD;
-
-        switch (parts[1].trim()) {
-        case "T":
-            if (taskContent.isEmpty()) {
-                String errMsg = "Task Content Missing";
-                throw new DataFormatException(errMsg);
-            }
-
-            taskToADD = new TodoTask(taskContent, done);
-            break;
-        case "D":
-            if (taskContent.isEmpty()) {
-                String errMsg = "Task Content Missing";
-                throw new DataFormatException(errMsg);
-            } else if (deadline.isEmpty()) {
-                String errMsg =  "Deadline Missing";
-                throw new DataFormatException(errMsg);
-            }
-
-            taskToADD = new DeadlineTask(taskContent, deadline, done);
-            break;
-        case "E":
-            if (taskContent.isEmpty()) {
-                String errMsg = "Task Content Missing";
-                throw new DataFormatException(errMsg);
-            } else if (startTime.isEmpty()) {
-                String errMsg =  "Start Time Missing";
-                throw new DataFormatException(errMsg);
-            } else if (endTime.isEmpty()) {
-                String errMsg =  "End Time Missing";
-                throw new DataFormatException(errMsg);
-            }
-
-            taskToADD = new EventTask(taskContent, startTime, endTime, done);
-            break;
-        default:
-            throw new DataFormatException("Invalid Task Type");
-        }
-
-        tasks.add(taskToADD);
-    }
-
-    private void writeTask(Task task) throws IOException {
-        FileWriter taskListWriter = new FileWriter(taskListFile, true);
-        String taskStorageStr = task.printStorageString();
-
-        taskListWriter.write(taskStorageStr + System.lineSeparator());
-        taskListWriter.close();
-    }
-
-    private void writeAllTasks() throws IOException {
-        FileWriter taskListWriter = new FileWriter(taskListFile, false);
-
-        for (Task task: tasks) {
-            String taskStorageStr = task.printStorageString();
-            taskListWriter.write(taskStorageStr + System.lineSeparator());
-        }
-
-        taskListWriter.close();
-    }
 
     private static boolean isNumeric(String str) {
         if (str == null) {
@@ -190,7 +106,7 @@ public class TaskList {
             }
 
             tasks.add(newTask);
-            writeTask(newTask);
+            TaskListStorage.writeTask(newTask, taskListFile);
             String taskView = newTask.printTask();
 
             return String.format("Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list:)", taskView, tasks.size());
@@ -219,7 +135,8 @@ public class TaskList {
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             tasks.get(taskNum - 1).mark();
-            writeAllTasks();
+            TaskListStorage.writeAllTasks(taskListFile, tasks);
+
             return String.format(" Nice! I've marked this task as done:\n \t%s", tasks.get(taskNum - 1).printTask());
         }
     }
@@ -232,7 +149,8 @@ public class TaskList {
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             tasks.get(taskNum - 1).unmark();
-            writeAllTasks();
+            TaskListStorage.writeAllTasks(taskListFile, tasks);
+
             return String.format(" OK, I've marked this task as not done yet:\n \t%s", tasks.get(taskNum - 1).printTask());
         }
     }
@@ -246,7 +164,8 @@ public class TaskList {
             int taskNum = Integer.parseInt(argument.trim());
             String taskView =  tasks.get(taskNum - 1).printTask();
             tasks.remove(taskNum - 1);
-            writeAllTasks();
+            TaskListStorage.writeAllTasks(taskListFile, tasks);
+
             return String.format(" Noted. I've removed this task:\n \t%s\n Now you have %d tasks in the list.", taskView, tasks.size());
         }
     }
