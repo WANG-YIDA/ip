@@ -1,20 +1,19 @@
 todo read book
-deadline submit report /by 2026-02-01
-event team meeting /from 10:00 /to 11:00
+deadline submit report /by 2026-02-01 12:00
+event team meeting /from 2026-01-26 10:00 /to 2026-01-26 11:00
 list
 mark 2
-list
 unmark 2
-mark
+mark 99
 mark x
-mark 10
 todo
-deadline finish
-event party /from 19:00
-todo buy milk
-delete 10
-delete 4
+deadline finish /by 2026-01-30 18:00
+event party /from 2026-02-14 19:00 /to 2026-02-14 22:00
+delete 2
 list
-mark 1
-mark 1
+delete 1
+delete 1
+delete 1
+delete 1
+list
 bye

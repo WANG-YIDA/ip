@@ -9,8 +9,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
@@ -41,9 +46,9 @@ public class TaskListStorage {
         String[] parts = taskStorageStr.split("/", 6);
         Boolean done = (Integer.parseInt(parts[0].trim(), 10) == 1);
         String taskContent = parts[2].trim();
-        String deadline = parts[3].trim();
-        String startTime = parts[4].trim();
-        String endTime = parts[5].trim();
+        String deadlineStr = parts[3].trim();
+        String startTimeStr = parts[4].trim();
+        String endTimeStr = parts[5].trim();
 
         Task taskToADD;
 
@@ -60,9 +65,18 @@ public class TaskListStorage {
                 if (taskContent.isEmpty()) {
                     String errMsg = "Task Content Missing";
                     throw new DataFormatException(errMsg);
-                } else if (deadline.isEmpty()) {
+                } else if (deadlineStr.isEmpty()) {
                     String errMsg =  "Deadline Missing";
                     throw new DataFormatException(errMsg);
+                }
+
+                // parse deadline storage string
+                LocalDateTime deadline;
+                try {
+                    DateTimeFormatter deadlineTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm", Locale.ENGLISH);
+                    deadline = LocalDateTime.parse(deadlineStr, deadlineTimeFormatter);
+                } catch (DateTimeParseException e) {
+                    throw new DataFormatException("Invalid Deadline Time Format");
                 }
 
                 taskToADD = new DeadlineTask(taskContent, deadline, done);
@@ -71,12 +85,23 @@ public class TaskListStorage {
                 if (taskContent.isEmpty()) {
                     String errMsg = "Task Content Missing";
                     throw new DataFormatException(errMsg);
-                } else if (startTime.isEmpty()) {
+                } else if (startTimeStr.isEmpty()) {
                     String errMsg =  "Start Time Missing";
                     throw new DataFormatException(errMsg);
-                } else if (endTime.isEmpty()) {
+                } else if (endTimeStr.isEmpty()) {
                     String errMsg =  "End Time Missing";
                     throw new DataFormatException(errMsg);
+                }
+
+                // parse event time storage string
+                LocalDateTime startTime;
+                LocalDateTime endTime;
+                try {
+                    DateTimeFormatter eventTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm", Locale.ENGLISH);
+                    startTime = LocalDateTime.parse(startTimeStr, eventTimeFormatter);
+                    endTime = LocalDateTime.parse(endTimeStr, eventTimeFormatter);
+                } catch (DateTimeParseException e) {
+                    throw new DataFormatException("Invalid Event Time Format");
                 }
 
                 taskToADD = new EventTask(taskContent, startTime, endTime, done);

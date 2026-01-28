@@ -20,7 +20,10 @@ then
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Paradox < input.txt > ACTUAL.TXT
+cd ..
+java -classpath ./bin app.Paradox < text-ui-test/input.txt > text-ui-test/ACTUAL.TXT
+
+cd text-ui-test
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
