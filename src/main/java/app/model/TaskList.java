@@ -42,9 +42,9 @@ public class TaskList {
 
     public String addTask(String argument, TaskType type) throws InvalidPatternException, RequestRejectedException, MissingComponentException, IOException {
         if (argument.isEmpty()) {
-            throw new InvalidPatternException("Please specify more details:)");
+            throw new InvalidPatternException(" Please specify more details:)");
         } else if (tasks.size() >= CAPACITY) {
-            throw new RequestRejectedException("Task list is full, cannot add new task:(");
+            throw new RequestRejectedException(" Task list is full, cannot add new task:(");
         } else {
             Task newTask = null;
             switch (type) {
@@ -59,7 +59,7 @@ public class TaskList {
 
                 // Error Handling: Pattern Validation
                 if (deadlineTaskParts.length != 2) {
-                    throw new InvalidPatternException("Please use valid pattern for Deadline task creation (e.g. deadline <task content> /by <deadline>");
+                    throw new InvalidPatternException(" Please use valid pattern for Deadline task creation (e.g. deadline <task content> /by <deadline>");
                 }
 
                 String deadlineTaskContent = deadlineTaskParts[0].trim();
@@ -67,10 +67,10 @@ public class TaskList {
 
                 // Error Handling: Empty Components
                 if (deadlineStr.isEmpty()) {
-                    String errMsg = "Please add a deadline for this task:)";
+                    String errMsg = " Please add a deadline for this task:)";
                     throw new MissingComponentException(errMsg);
                 } else if (deadlineTaskContent.isEmpty()) {
-                    String errMsg =  "Please specific the task content:)";
+                    String errMsg =  " Please specific the task content:)";
                     throw new MissingComponentException(errMsg);
                 }
 
@@ -81,7 +81,7 @@ public class TaskList {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.ENGLISH);
                     deadline = LocalDateTime.parse(deadlineStr, deadlineTimeFormatter);
                 } catch (DateTimeParseException e) {
-                    throw new InvalidPatternException("Please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+                    throw new InvalidPatternException(" Please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
                 }
 
                 newTask = new DeadlineTask(deadlineTaskContent, deadline);
@@ -95,7 +95,7 @@ public class TaskList {
                 int lastToIdx = argument.lastIndexOf("/to");
 
                 if (fromIdx == -1 || toIdx == -1 || fromIdx > toIdx || fromIdx != lastFromIdx || toIdx != lastToIdx) {
-                    throw new InvalidPatternException("Please use pattern for Event task creation (e.g. event <task content> /from <start time> /to <end time>");
+                    throw new InvalidPatternException(" Please use pattern for Event task creation (e.g. event <task content> /from <start time> /to <end time>");
                 }
 
                 // Component Parsing
@@ -106,13 +106,13 @@ public class TaskList {
 
                 // Error Handling: Empty Components
                 if (eventTaskContent.isEmpty()) {
-                    String errMsg = "Please specify task content:)";
+                    String errMsg = " Please specify task content:)";
                     throw new MissingComponentException(errMsg);
                 } else if (startTimeStr.isEmpty()) {
-                    String errMsg =  "Please specific the starting time of the task:)";
+                    String errMsg =  " Please specific the starting time of the task:)";
                     throw new MissingComponentException(errMsg);
                 } else if (endTimeStr.isEmpty()) {
-                    String errMsg =  "Please specific the ending time of the task:)";
+                    String errMsg =  " Please specific the ending time of the task:)";
                     throw new MissingComponentException(errMsg);
                 }
 
@@ -124,7 +124,7 @@ public class TaskList {
                     startTime = LocalDateTime.parse(startTimeStr, eventTimeFormatter);
                     endTime = LocalDateTime.parse(endTimeStr, eventTimeFormatter);
                 } catch (DateTimeParseException e) {
-                    throw new InvalidPatternException("Please use event time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+                    throw new InvalidPatternException(" Please use event time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
                 }
 
                 newTask = new EventTask(eventTaskContent, startTime, endTime);
@@ -134,13 +134,13 @@ public class TaskList {
             TaskListStorage.writeTask(newTask, taskListFile);
             String taskView = newTask.printTask();
 
-            return String.format("Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list:)", taskView, tasks.size());
+            return String.format(" Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list:)", taskView, tasks.size());
         }
     }
 
     public String printList() {
         if (tasks.isEmpty()) {
-            return "No task in the list yet:)\n";
+            return " No task in the list yet:)";
         }
 
         StringBuilder taskListView = new StringBuilder();
@@ -149,6 +149,7 @@ public class TaskList {
             String taskView = String.format(" %d.%s\n", i + 1, tasks.get(i).printTask());
             taskListView.append(taskView);
         }
+        taskListView.append(String.format(" Total Number of Tasks: %d", tasks.size()));
         return taskListView.toString();
     }
 
@@ -156,7 +157,7 @@ public class TaskList {
         if (argument.isEmpty()
             || !TaskList.isNumeric(argument)
             || Integer.parseInt(argument.trim()) > tasks.size()) {
-                throw new InvalidPatternException("Please specify a valid task number to mark:(");
+                throw new InvalidPatternException(" Please specify a valid task number to mark:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             tasks.get(taskNum - 1).mark();
@@ -170,7 +171,7 @@ public class TaskList {
         if (argument.isEmpty()
             || !TaskList.isNumeric(argument)
             || Integer.parseInt(argument.trim()) > tasks.size()) {
-                throw new InvalidPatternException("Please specify a valid task number to unmark:(");
+                throw new InvalidPatternException(" Please specify a valid task number to unmark:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             tasks.get(taskNum - 1).unmark();
@@ -184,7 +185,7 @@ public class TaskList {
         if (argument.isEmpty()
             || !TaskList.isNumeric(argument)
             || Integer.parseInt(argument.trim()) > tasks.size()) {
-                throw new InvalidPatternException("Please specify a valid task number to delete:(");
+                throw new InvalidPatternException(" Please specify a valid task number to delete:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             String taskView =  tasks.get(taskNum - 1).printTask();
