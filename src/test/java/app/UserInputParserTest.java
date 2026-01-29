@@ -1,0 +1,27 @@
+package app;
+
+import app.exception.InvalidCommandException;
+import app.model.command.AddTodoCommand;
+import app.model.command.Command;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class UserInputParserTest {
+    @Test
+    public void parse_addTodoCommand_success() throws Exception {
+        Command result = UserInputParser.parse("todo read book");
+        assertNotNull(result);
+        assertEquals(AddTodoCommand.class, result.getClass());
+    }
+
+    @Test
+    public void parse_addTodoCommand_exceptionThrown() {
+        try {
+            UserInputParser.parse("tod read book");
+            fail("Expected InvalidCommandException");
+        } catch (InvalidCommandException e) {
+            assertEquals(" Invalid Command:(", e.getMessage());
+        }
+    }
+}
