@@ -16,8 +16,8 @@ public class DeadlineTask extends Task {
         this.deadline = deadline;
     }
 
-    public DeadlineTask(String taskContent, LocalDateTime deadline, Boolean done) {
-        super(done);
+    public DeadlineTask(String taskContent, LocalDateTime deadline, Boolean isDone) {
+        super(isDone);
         this.taskContent = taskContent;
         this.deadline = deadline;
     }

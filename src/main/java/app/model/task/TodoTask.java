@@ -8,8 +8,8 @@ public class TodoTask extends Task {
         this.taskContent = taskContent;
     }
 
-    public TodoTask(String taskContent, Boolean done) {
-        super(done);
+    public TodoTask(String taskContent, Boolean isDone) {
+        super(isDone);
         this.taskContent = taskContent;
     }
 

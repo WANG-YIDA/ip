@@ -37,7 +37,7 @@ public class TaskListStorage {
 
 
     /**
-     * Parse each component of the task stored in source file, create corresponding task with these components and store the task in list.
+     * Parses each component of the task stored in source file, create corresponding task with these components and store the task in list.
      * Storage Pattern: Done/TaskType/TaskContent/Deadline(if applicable)/StartTime(if applicable)/EndTime(if applicable).
      * @param taskStorageStr the string representation of the task in persistent storage.
      */

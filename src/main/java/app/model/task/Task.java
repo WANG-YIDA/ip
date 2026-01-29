@@ -1,33 +1,33 @@
 package app.model.task;
 
 public abstract class Task {
-    private Boolean done;
+    private Boolean isDone;
 
-    public Task(Boolean done) {
-        this.done = done;
+    public Task(Boolean isDone) {
+        this.isDone = isDone;
     }
 
     public Task() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public abstract String printTask();
     public abstract String printStorageString();
 
     public String printStorageString(String partialStr) {
-        return done ? "1/" + partialStr : "0/" + partialStr;
+        return isDone ? "1/" + partialStr : "0/" + partialStr;
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String printCheckBox() {
-        return done ? "[x]" : "[ ]";
+        return isDone ? "[x]" : "[ ]";
     }
 
 }
