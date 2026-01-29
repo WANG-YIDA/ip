@@ -2,6 +2,7 @@ package app.model;
 
 import app.dataaccess.TaskListStorage;
 import app.exception.InvalidPatternException;
+import app.exception.InvalidTaskTypeException;
 import app.exception.MissingComponentException;
 import app.exception.RequestRejectedException;
 import app.model.task.*;
@@ -41,7 +42,8 @@ public class TaskList {
         }
     }
 
-    public String addTask(String argument, TaskType type) throws InvalidPatternException, RequestRejectedException, MissingComponentException, IOException {
+    public String addTask(String argument, TaskType type) throws InvalidPatternException, RequestRejectedException,
+            MissingComponentException, IOException, InvalidTaskTypeException {
         if (argument.isEmpty()) {
             throw new InvalidPatternException(" Please specify more details:)");
         } else if (tasks.size() >= CAPACITY) {
@@ -78,8 +80,7 @@ public class TaskList {
                 // parse deadline
                 LocalDateTime deadline;
                 try {
-            DateTimeFormatter deadlineTimeFormatter =
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.ENGLISH);
+                    DateTimeFormatter deadlineTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.ENGLISH);
                     deadline = LocalDateTime.parse(deadlineStr, deadlineTimeFormatter);
                 } catch (DateTimeParseException e) {
                     throw new InvalidPatternException(" Please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
@@ -129,6 +130,9 @@ public class TaskList {
                 }
 
                 newTask = new EventTask(eventTaskContent, startTime, endTime);
+                break;
+            default:
+                throw new InvalidTaskTypeException(" I can only create one of these task types: todo, deadline, event");
             }
 
             tasks.add(newTask);
@@ -156,9 +160,9 @@ public class TaskList {
 
     public String mark(String argument) throws InvalidPatternException, IOException {
         if (argument.isEmpty()
-            || !TaskList.isNumeric(argument)
-            || Integer.parseInt(argument.trim()) > tasks.size()) {
-                throw new InvalidPatternException(" Please specify a valid task number to mark:(");
+                || !TaskList.isNumeric(argument)
+                || Integer.parseInt(argument.trim()) > tasks.size()) {
+            throw new InvalidPatternException(" Please specify a valid task number to mark:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             tasks.get(taskNum - 1).mark();
@@ -170,9 +174,9 @@ public class TaskList {
 
     public String unmark(String argument) throws InvalidPatternException, IOException {
         if (argument.isEmpty()
-            || !TaskList.isNumeric(argument)
-            || Integer.parseInt(argument.trim()) > tasks.size()) {
-                throw new InvalidPatternException(" Please specify a valid task number to unmark:(");
+                || !TaskList.isNumeric(argument)
+                || Integer.parseInt(argument.trim()) > tasks.size()) {
+            throw new InvalidPatternException(" Please specify a valid task number to unmark:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             tasks.get(taskNum - 1).unmark();
@@ -184,9 +188,9 @@ public class TaskList {
 
     public String delete(String argument) throws InvalidPatternException, IOException {
         if (argument.isEmpty()
-            || !TaskList.isNumeric(argument)
-            || Integer.parseInt(argument.trim()) > tasks.size()) {
-                throw new InvalidPatternException(" Please specify a valid task number to delete:(");
+                || !TaskList.isNumeric(argument)
+                || Integer.parseInt(argument.trim()) > tasks.size()) {
+            throw new InvalidPatternException(" Please specify a valid task number to delete:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             String taskView =  tasks.get(taskNum - 1).printTask();

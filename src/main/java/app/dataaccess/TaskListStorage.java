@@ -37,7 +37,8 @@ public class TaskListStorage {
 
 
     /**
-     * Parses each component of the task stored in source file, create corresponding task with these components and store the task in list.
+     * Parses each component of the task stored in source file, create corresponding task with these components
+     * and store the task in list.
      * Storage Pattern: Done/TaskType/TaskContent/Deadline(if applicable)/StartTime(if applicable)/EndTime(if applicable).
      * @param taskStorageStr the string representation of the task in persistent storage.
      */
@@ -49,67 +50,67 @@ public class TaskListStorage {
         String startTimeStr = parts[4].trim();
         String endTimeStr = parts[5].trim();
 
-        Task taskToADD;
+        Task taskToAdd;
 
         switch (parts[1].trim()) {
-            case "T":
-                if (taskContent.isEmpty()) {
-                    String errMsg = "Task Content Missing";
-                    throw new DataFormatException(errMsg);
-                }
+        case "T":
+            if (taskContent.isEmpty()) {
+                String errMsg = "Task Content Missing";
+                throw new DataFormatException(errMsg);
+            }
 
-                taskToADD = new TodoTask(taskContent, done);
-                break;
-            case "D":
-                if (taskContent.isEmpty()) {
-                    String errMsg = "Task Content Missing";
-                    throw new DataFormatException(errMsg);
-                } else if (deadlineStr.isEmpty()) {
-                    String errMsg =  "Deadline Missing";
-                    throw new DataFormatException(errMsg);
-                }
+            taskToAdd = new TodoTask(taskContent, done);
+            break;
+        case "D":
+            if (taskContent.isEmpty()) {
+                String errMsg = "Task Content Missing";
+                throw new DataFormatException(errMsg);
+            } else if (deadlineStr.isEmpty()) {
+                String errMsg =  "Deadline Missing";
+                throw new DataFormatException(errMsg);
+            }
 
-                // parse deadline storage string
-                LocalDateTime deadline;
-                try {
-                    DateTimeFormatter deadlineTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm", Locale.ENGLISH);
-                    deadline = LocalDateTime.parse(deadlineStr, deadlineTimeFormatter);
-                } catch (DateTimeParseException e) {
-                    throw new DataFormatException("Invalid Deadline Time Format");
-                }
+            // parse deadline storage string
+            LocalDateTime deadline;
+            try {
+                DateTimeFormatter deadlineTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm", Locale.ENGLISH);
+                deadline = LocalDateTime.parse(deadlineStr, deadlineTimeFormatter);
+            } catch (DateTimeParseException e) {
+                throw new DataFormatException("Invalid Deadline Time Format");
+            }
 
-                taskToADD = new DeadlineTask(taskContent, deadline, done);
-                break;
-            case "E":
-                if (taskContent.isEmpty()) {
-                    String errMsg = "Task Content Missing";
-                    throw new DataFormatException(errMsg);
-                } else if (startTimeStr.isEmpty()) {
-                    String errMsg =  "Start Time Missing";
-                    throw new DataFormatException(errMsg);
-                } else if (endTimeStr.isEmpty()) {
-                    String errMsg =  "End Time Missing";
-                    throw new DataFormatException(errMsg);
-                }
+            taskToAdd = new DeadlineTask(taskContent, deadline, done);
+            break;
+        case "E":
+            if (taskContent.isEmpty()) {
+                String errMsg = "Task Content Missing";
+                throw new DataFormatException(errMsg);
+            } else if (startTimeStr.isEmpty()) {
+                String errMsg =  "Start Time Missing";
+                throw new DataFormatException(errMsg);
+            } else if (endTimeStr.isEmpty()) {
+                String errMsg =  "End Time Missing";
+                throw new DataFormatException(errMsg);
+            }
 
-                // parse event time storage string
-                LocalDateTime startTime;
-                LocalDateTime endTime;
-                try {
-                    DateTimeFormatter eventTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm", Locale.ENGLISH);
-                    startTime = LocalDateTime.parse(startTimeStr, eventTimeFormatter);
-                    endTime = LocalDateTime.parse(endTimeStr, eventTimeFormatter);
-                } catch (DateTimeParseException e) {
-                    throw new DataFormatException("Invalid Event Time Format");
-                }
+            // parse event time storage string
+            LocalDateTime startTime;
+            LocalDateTime endTime;
+            try {
+                DateTimeFormatter eventTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm", Locale.ENGLISH);
+                startTime = LocalDateTime.parse(startTimeStr, eventTimeFormatter);
+                endTime = LocalDateTime.parse(endTimeStr, eventTimeFormatter);
+            } catch (DateTimeParseException e) {
+                throw new DataFormatException("Invalid Event Time Format");
+            }
 
-                taskToADD = new EventTask(taskContent, startTime, endTime, done);
-                break;
-            default:
-                throw new DataFormatException("Invalid Task Type");
+            taskToAdd = new EventTask(taskContent, startTime, endTime, done);
+            break;
+        default:
+            throw new DataFormatException("Invalid Task Type");
         }
 
-        taskList.add(taskToADD);
+        taskList.add(taskToAdd);
     }
 
     public static void writeTask(Task task, File taskListFile) throws IOException {

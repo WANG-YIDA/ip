@@ -1,6 +1,9 @@
-package app.exception;
+package app.model.command;
 
-import app.model.command.Command;
+import app.exception.InvalidPatternException;
+import app.exception.InvalidTaskTypeException;
+import app.exception.MissingComponentException;
+import app.exception.RequestRejectedException;
 import app.model.TaskList;
 import app.model.task.TaskType;
 import app.ui.Ui;
@@ -21,7 +24,8 @@ public class AddEventCommand extends Command {
             String addEventTaskResult = taskList.addTask(argument, TaskType.EVENT);
             String addEventTaskMsg = Ui.printWrappedMessage(addEventTaskResult);
             System.out.print(addEventTaskMsg);
-        } catch (InvalidPatternException | MissingComponentException | RequestRejectedException | IOException e) {
+        } catch (InvalidPatternException | MissingComponentException | RequestRejectedException | IOException |
+                 InvalidTaskTypeException e) {
             String errMsg = Ui.printWrappedMessage(e.getMessage());
             System.out.print(errMsg);
         }

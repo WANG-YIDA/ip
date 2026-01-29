@@ -1,7 +1,7 @@
 package app.model.task;
 
 public class TodoTask extends Task {
-    String taskContent;
+    private String taskContent;
 
     public TodoTask(String taskContent) {
         super();

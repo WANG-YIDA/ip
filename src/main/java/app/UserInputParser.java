@@ -1,6 +1,6 @@
 package app;
 
-import app.exception.*;
+import app.exception.InvalidCommandException;
 import app.model.command.*;
 
 public class UserInputParser {

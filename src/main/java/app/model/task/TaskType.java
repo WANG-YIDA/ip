@@ -1,3 +1,3 @@
 package app.model.task;
 
-public enum TaskType { TODO, DEADLINE, EVENT}
+public enum TaskType { TODO, DEADLINE, EVENT }

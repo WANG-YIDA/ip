@@ -1,6 +1,9 @@
-package app.exception;
+package app.model.command;
 
-import app.model.command.Command;
+import app.exception.InvalidPatternException;
+import app.exception.InvalidTaskTypeException;
+import app.exception.MissingComponentException;
+import app.exception.RequestRejectedException;
 import app.model.TaskList;
 import app.model.task.TaskType;
 import app.ui.Ui;
@@ -22,7 +25,7 @@ public class AddTodoCommand extends Command {
             String addTodoTaskMsg = Ui.printWrappedMessage(addTodoTaskResult);
             System.out.print(addTodoTaskMsg);
         } catch (InvalidPatternException | MissingComponentException | RequestRejectedException |
-                 IOException e) {
+                 IOException | InvalidTaskTypeException e) {
             String errMsg = Ui.printWrappedMessage(e.getMessage());
             System.out.print(errMsg);
         }
