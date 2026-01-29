@@ -17,7 +17,7 @@ public class Paradox {
         // create a task list and specific read source and write destination
         TaskList taskList = null;
         try {
-            String taskListPath = "./src/main/data/taskList.txt";
+            String taskListPath = "./src/main/resources/taskList.txt";
             taskList = new TaskList(taskListPath);
         } catch (FileNotFoundException | DataFormatException e) {
             String errMsg = Ui.printWrappedMessage(String.format(" Error: %s. Please try again later:(", e.getMessage()));
