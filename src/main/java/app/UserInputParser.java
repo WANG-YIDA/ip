@@ -1,7 +1,7 @@
 package app;
 
 import app.exception.*;
-import app.model.*;
+import app.model.command.*;
 
 public class UserInputParser {
     public static Command parse(String userInput) throws InvalidCommandException {

@@ -1,7 +1,7 @@
 package app;
 
 import app.exception.InvalidCommandException;
-import app.model.Command;
+import app.model.command.Command;
 import app.model.TaskList;
 import app.ui.Ui;
 
@@ -33,7 +33,6 @@ public class Paradox {
         // Handle user commands
         String userInput = scanner.nextLine();
 
-        mainLoop:
         while (true) {
             try {
                 Command command = UserInputParser.parse(userInput);

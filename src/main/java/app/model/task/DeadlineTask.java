@@ -1,4 +1,4 @@
-package app.model;
+package app.model.task;
 
 import java.util.Locale;
 import java.time.LocalDateTime;

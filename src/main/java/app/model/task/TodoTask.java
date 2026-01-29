@@ -1,4 +1,4 @@
-package app.model;
+package app.model.task;
 
 public class TodoTask extends Task {
     String taskContent;

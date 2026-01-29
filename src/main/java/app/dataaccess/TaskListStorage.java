@@ -1,9 +1,9 @@
 package app.dataaccess;
 
-import app.model.DeadlineTask;
-import app.model.EventTask;
-import app.model.Task;
-import app.model.TodoTask;
+import app.model.task.DeadlineTask;
+import app.model.task.EventTask;
+import app.model.task.Task;
+import app.model.task.TodoTask;
 
 import java.io.File;
 import java.io.FileNotFoundException;

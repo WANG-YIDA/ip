@@ -1,8 +1,8 @@
 package app.exception;
 
-import app.model.Command;
+import app.model.command.Command;
 import app.model.TaskList;
-import app.model.TaskType;
+import app.model.task.TaskType;
 import app.ui.Ui;
 
 import java.io.IOException;

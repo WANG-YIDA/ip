@@ -1,24 +1,25 @@
-package app.model;
+package app.model.command;
 
 import app.exception.InvalidPatternException;
+import app.model.TaskList;
 import app.ui.Ui;
 
 import java.io.IOException;
 
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private String argument;
 
-    public UnmarkCommand(String argument) {
+    public MarkCommand(String argument) {
         this.argument = argument;
     }
 
     @Override
     public void execute(TaskList taskList) {
-        // Mark a task as undone
+        // Mark a task as done
         try {
-            String unmarkResult = taskList.unmark(argument);
-            String unmarkMsg = Ui.printWrappedMessage(unmarkResult);
-            System.out.print(unmarkMsg);
+            String markResult = taskList.mark(argument);
+            String markMsg = Ui.printWrappedMessage(markResult);
+            System.out.print(markMsg);
         } catch (InvalidPatternException | IOException e) {
             String errMsg = Ui.printWrappedMessage(e.getMessage());
             System.out.print(errMsg);

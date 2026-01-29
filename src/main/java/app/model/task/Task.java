@@ -1,4 +1,4 @@
-package app.model;
+package app.model.task;
 
 public abstract class Task {
     private Boolean done;

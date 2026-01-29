@@ -1,5 +1,6 @@
-package app.model;
+package app.model.command;
 
+import app.model.TaskList;
 import app.ui.Ui;
 
 public class ListCommand extends Command {
