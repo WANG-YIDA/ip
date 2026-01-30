@@ -13,6 +13,7 @@ public abstract class Task {
 
     public abstract String printTask();
     public abstract String printStorageString();
+    public abstract Boolean contains(String keyword);
 
     public String printStorageString(String partialStr) {
         return isDone ? "1/" + partialStr : "0/" + partialStr;

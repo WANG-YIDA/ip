@@ -41,4 +41,9 @@ public class EventTask extends Task {
         String partialStr = String.format("%s/%s/%s/%s/%s", "E", taskContent, "", startTimeStorageStr, endTimeStorageStr);
         return super.printStorageString(partialStr);
     }
+
+    @Override
+    public Boolean contains(String keyword) {
+        return this.taskContent.contains(keyword);
+    }
 }
