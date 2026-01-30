@@ -17,11 +17,23 @@ import java.util.List;
 import java.util.Locale;
 import java.util.zip.DataFormatException;
 
+/**
+ * Represents a task list persisted to a file. Provides operations to add,
+ * list, mark/unmark, and delete tasks; changes are written back to
+ * persistent storage.
+ */
 public class TaskList {
     private final Integer CAPACITY = 100;
     private File taskListFile;
     private List<Task> tasks;
 
+    /**
+     * Loads the task list from the given file path.
+     *
+     * @param taskListPath path to the task storage file
+     * @throws FileNotFoundException if the file cannot be found
+     * @throws DataFormatException   if the stored data is malformed
+     */
     public TaskList(String taskListPath) throws FileNotFoundException, DataFormatException {
         this.taskListFile = new File(taskListPath);
 
@@ -42,6 +54,19 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new task of the specified type parsed from the given argument.
+     * Returns a user-facing message describing the result.
+     *
+     * @param argument raw task argument (format depends on task type)
+     * @param type     the type of task to create
+     * @return a confirmation string describing the added task and new total
+     * @throws InvalidPatternException   if the argument doesn't match expected format
+     * @throws RequestRejectedException  if the list is full or request cannot be accepted
+     * @throws MissingComponentException if required components are missing
+     * @throws IOException               if writing to storage fails
+     * @throws InvalidTaskTypeException  if the task type is unsupported
+     */
     public String addTask(String argument, TaskType type) throws InvalidPatternException, RequestRejectedException,
             MissingComponentException, IOException, InvalidTaskTypeException {
         if (argument.isEmpty()) {
@@ -143,6 +168,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a formatted string listing all tasks; returns a friendly message if empty.
+     *
+     * @return formatted task list or empty message
+     */
     public String printList() {
         if (tasks.isEmpty()) {
             return " No task in the list yet:)";
@@ -158,6 +188,14 @@ public class TaskList {
         return taskListView.toString();
     }
 
+    /**
+     * Marks a task as done by numeric index provided as a string.
+     *
+     * @param argument the task number (1-based) as string
+     * @return a confirmation message with the updated task
+     * @throws InvalidPatternException if the argument is invalid
+     * @throws IOException             if writing to storage fails
+     */
     public String mark(String argument) throws InvalidPatternException, IOException {
         if (argument.isEmpty()
                 || !TaskList.isNumeric(argument)
@@ -172,6 +210,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as not done by numeric index provided as a string.
+     *
+     * @param argument the task number (1-based) as string
+     * @return a confirmation message with the updated task
+     * @throws InvalidPatternException if the argument is invalid
+     * @throws IOException             if writing to storage fails
+     */
     public String unmark(String argument) throws InvalidPatternException, IOException {
         if (argument.isEmpty()
                 || !TaskList.isNumeric(argument)
@@ -186,6 +232,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes the task at the specified numeric index (1-based) and returns a message.
+     *
+     * @param argument the task number (1-based) as string
+     * @return a confirmation message with the removed task and new total count
+     * @throws InvalidPatternException if the argument is invalid
+     * @throws IOException             if writing to storage fails
+     */
     public String delete(String argument) throws InvalidPatternException, IOException {
         if (argument.isEmpty()
                 || !TaskList.isNumeric(argument)

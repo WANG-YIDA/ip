@@ -6,13 +6,27 @@ import app.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Command to mark a task as not completed (undo mark).
+ */
 public class UnmarkCommand extends Command {
     private String argument;
 
+    /**
+     * Creates an UnmarkCommand.
+     *
+     * @param argument identifier or index of the task to unmark
+     */
     public UnmarkCommand(String argument) {
         this.argument = argument;
     }
 
+    /**
+     * Executes the command by unmarking the specified task and printing the
+     * result. Errors are handled and printed.
+     *
+     * @param taskList the task list to operate on
+     */
     @Override
     public void execute(TaskList taskList) {
         // Mark a task as undone

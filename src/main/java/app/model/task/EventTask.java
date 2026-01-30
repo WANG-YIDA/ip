@@ -4,6 +4,9 @@ import java.util.Locale;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents an event task with a start and end time.
+ */
 public class EventTask extends Task {
     private String taskContent;
     private LocalDateTime startTime;
@@ -11,6 +14,13 @@ public class EventTask extends Task {
     private DateTimeFormatter viewStrFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm", Locale.ENGLISH);
     private DateTimeFormatter storageStrFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm", Locale.ENGLISH);
 
+    /**
+     * Constructs a not-yet-completed EventTask.
+     *
+     * @param taskContent description of the event
+     * @param startTime   event start date/time
+     * @param endTime     event end date/time
+     */
     public EventTask(String taskContent, LocalDateTime startTime, LocalDateTime endTime) {
         super();
         this.taskContent = taskContent;
@@ -18,6 +28,14 @@ public class EventTask extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Constructs an EventTask with a specified completion state.
+     *
+     * @param taskContent description of the event
+     * @param startTime   event start date/time
+     * @param endTime     event end date/time
+     * @param isDone      initial completion state
+     */
     public EventTask(String taskContent, LocalDateTime startTime, LocalDateTime endTime, Boolean isDone) {
         super(isDone);
         this.taskContent = taskContent;
@@ -25,6 +43,9 @@ public class EventTask extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Returns a user-facing representation including type, checkbox and time range.
+     */
     @Override
     public String printTask() {
         String checkBox = this.printCheckBox();
@@ -34,6 +55,9 @@ public class EventTask extends Task {
         return String.format("%s%s %s (from: %s to: %s)", typeBox, checkBox, this.taskContent, startTimeView, endTimeView);
     }
 
+    /**
+     * Returns a storage-friendly string for persistence.
+     */
     @Override
     public String printStorageString() {
         String startTimeStorageStr = startTime.format(storageStrFormatter);

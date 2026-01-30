@@ -6,13 +6,27 @@ import app.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private String argument;
 
+    /**
+     * Creates a DeleteCommand.
+     *
+     * @param argument identifier or index of the task to delete
+     */
     public DeleteCommand(String argument) {
         this.argument = argument;
     }
 
+    /**
+     * Executes the command by deleting the specified task and printing the
+     * result. Errors are handled and printed.
+     *
+     * @param taskList the task list to operate on
+     */
     @Override
     public void execute(TaskList taskList) {
         // Delete a task
