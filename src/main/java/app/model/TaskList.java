@@ -1,12 +1,5 @@
 package app.model;
 
-import app.dataaccess.TaskListStorage;
-import app.exception.InvalidPatternException;
-import app.exception.InvalidTaskTypeException;
-import app.exception.MissingComponentException;
-import app.exception.RequestRejectedException;
-import app.model.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,8 +10,19 @@ import java.util.List;
 import java.util.Locale;
 import java.util.zip.DataFormatException;
 
+import app.dataaccess.TaskListStorage;
+import app.exception.InvalidPatternException;
+import app.exception.InvalidTaskTypeException;
+import app.exception.MissingComponentException;
+import app.exception.RequestRejectedException;
+import app.model.task.DeadlineTask;
+import app.model.task.EventTask;
+import app.model.task.Task;
+import app.model.task.TodoTask;
+import app.model.task.TaskType;
+
 public class TaskList {
-    private final Integer CAPACITY = 100;
+    private final Integer capacity = 100;
     private File taskListFile;
     private List<Task> tasks;
 
@@ -46,7 +50,7 @@ public class TaskList {
             MissingComponentException, IOException, InvalidTaskTypeException {
         if (argument.isEmpty()) {
             throw new InvalidPatternException(" Please specify more details:)");
-        } else if (tasks.size() >= CAPACITY) {
+        } else if (tasks.size() >= capacity) {
             throw new RequestRejectedException(" Task list is full, cannot add new task:(");
         } else {
             Task newTask = null;
@@ -62,7 +66,8 @@ public class TaskList {
 
                 // Error Handling: Pattern Validation
                 if (deadlineTaskParts.length != 2) {
-                    throw new InvalidPatternException(" Please use valid pattern for Deadline task creation (e.g. deadline <task content> /by <deadline>");
+                    throw new InvalidPatternException(
+                            " Please use valid pattern for Deadline task creation (e.g. deadline <task content> /by <deadline>");
                 }
 
                 String deadlineTaskContent = deadlineTaskParts[0].trim();
@@ -73,17 +78,19 @@ public class TaskList {
                     String errMsg = " Please add a deadline for this task:)";
                     throw new MissingComponentException(errMsg);
                 } else if (deadlineTaskContent.isEmpty()) {
-                    String errMsg =  " Please specific the task content:)";
+                    String errMsg = " Please specific the task content:)";
                     throw new MissingComponentException(errMsg);
                 }
 
                 // parse deadline
                 LocalDateTime deadline;
                 try {
-                    DateTimeFormatter deadlineTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.ENGLISH);
+                    DateTimeFormatter deadlineTimeFormatter = DateTimeFormatter.ofPattern(
+                            "yyyy-MM-dd HH:mm", Locale.ENGLISH);
                     deadline = LocalDateTime.parse(deadlineStr, deadlineTimeFormatter);
                 } catch (DateTimeParseException e) {
-                    throw new InvalidPatternException(" Please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+                    throw new InvalidPatternException(
+                            " Please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
                 }
 
                 newTask = new DeadlineTask(deadlineTaskContent, deadline);
@@ -96,8 +103,10 @@ public class TaskList {
                 int toIdx = argument.indexOf("/to");
                 int lastToIdx = argument.lastIndexOf("/to");
 
-                if (fromIdx == -1 || toIdx == -1 || fromIdx > toIdx || fromIdx != lastFromIdx || toIdx != lastToIdx) {
-                    throw new InvalidPatternException(" Please use pattern for Event task creation (e.g. event <task content> /from <start time> /to <end time>");
+                if (fromIdx == -1 || toIdx == -1 || fromIdx > toIdx || fromIdx != lastFromIdx
+                        || toIdx != lastToIdx) {
+                    throw new InvalidPatternException(
+                            " Please use pattern for Event task creation (e.g. event <task content> /from <start time> /to <end time>");
                 }
 
                 // Component Parsing
@@ -111,10 +120,10 @@ public class TaskList {
                     String errMsg = " Please specify task content:)";
                     throw new MissingComponentException(errMsg);
                 } else if (startTimeStr.isEmpty()) {
-                    String errMsg =  " Please specific the starting time of the task:)";
+                    String errMsg = " Please specific the starting time of the task:)";
                     throw new MissingComponentException(errMsg);
                 } else if (endTimeStr.isEmpty()) {
-                    String errMsg =  " Please specific the ending time of the task:)";
+                    String errMsg = " Please specific the ending time of the task:)";
                     throw new MissingComponentException(errMsg);
                 }
 
@@ -122,24 +131,28 @@ public class TaskList {
                 LocalDateTime startTime;
                 LocalDateTime endTime;
                 try {
-                    DateTimeFormatter eventTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.ENGLISH);
+                    DateTimeFormatter eventTimeFormatter = DateTimeFormatter.ofPattern(
+                            "yyyy-MM-dd HH:mm", Locale.ENGLISH);
                     startTime = LocalDateTime.parse(startTimeStr, eventTimeFormatter);
                     endTime = LocalDateTime.parse(endTimeStr, eventTimeFormatter);
                 } catch (DateTimeParseException e) {
-                    throw new InvalidPatternException(" Please use event time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+                    throw new InvalidPatternException(
+                            " Please use event time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
                 }
 
                 newTask = new EventTask(eventTaskContent, startTime, endTime);
                 break;
             default:
-                throw new InvalidTaskTypeException(" I can only create one of these task types: todo, deadline, event");
+                throw new InvalidTaskTypeException(
+                        " I can only create one of these task types: todo, deadline, event");
             }
 
             tasks.add(newTask);
             TaskListStorage.writeTask(newTask, taskListFile);
             String taskView = newTask.printTask();
 
-            return String.format(" Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list:)", taskView, tasks.size());
+            return String.format(" Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list:)",
+                    taskView, tasks.size());
         }
     }
 
@@ -168,7 +181,8 @@ public class TaskList {
             tasks.get(taskNum - 1).mark();
             TaskListStorage.writeAllTasks(taskListFile, tasks);
 
-            return String.format(" Nice! I've marked this task as done:\n \t%s", tasks.get(taskNum - 1).printTask());
+            return String.format(" Nice! I've marked this task as done:\n \t%s",
+                    tasks.get(taskNum - 1).printTask());
         }
     }
 
@@ -182,7 +196,8 @@ public class TaskList {
             tasks.get(taskNum - 1).unmark();
             TaskListStorage.writeAllTasks(taskListFile, tasks);
 
-            return String.format(" OK, I've marked this task as not done yet:\n \t%s", tasks.get(taskNum - 1).printTask());
+            return String.format(" OK, I've marked this task as not done yet:\n \t%s",
+                    tasks.get(taskNum - 1).printTask());
         }
     }
 
@@ -193,11 +208,12 @@ public class TaskList {
             throw new InvalidPatternException(" Please specify a valid task number to delete:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
-            String taskView =  tasks.get(taskNum - 1).printTask();
+            String taskView = tasks.get(taskNum - 1).printTask();
             tasks.remove(taskNum - 1);
             TaskListStorage.writeAllTasks(taskListFile, tasks);
 
-            return String.format(" Noted. I've removed this task:\n \t%s\n Now you have %d tasks in the list.", taskView, tasks.size());
+            return String.format(" Noted. I've removed this task:\n \t%s\n Now you have %d tasks in the list.",
+                    taskView, tasks.size());
         }
     }
 }

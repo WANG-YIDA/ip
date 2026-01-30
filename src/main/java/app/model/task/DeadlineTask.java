@@ -1,8 +1,8 @@
 package app.model.task;
 
-import java.util.Locale;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class DeadlineTask extends Task {
     private String taskContent;

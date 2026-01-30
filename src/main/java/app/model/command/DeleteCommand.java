@@ -1,10 +1,10 @@
 package app.model.command;
 
+import java.io.IOException;
+
 import app.exception.InvalidPatternException;
 import app.model.TaskList;
 import app.ui.Ui;
-
-import java.io.IOException;
 
 public class DeleteCommand extends Command {
     private String argument;

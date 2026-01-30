@@ -1,13 +1,13 @@
 package app;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.zip.DataFormatException;
+
 import app.exception.InvalidCommandException;
 import app.model.command.Command;
 import app.model.TaskList;
 import app.ui.Ui;
-
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.zip.DataFormatException;
 
 public class Paradox {
 
@@ -20,14 +20,16 @@ public class Paradox {
             String taskListPath = "./src/main/resources/taskList.txt";
             taskList = new TaskList(taskListPath);
         } catch (FileNotFoundException | DataFormatException e) {
-            String errMsg = Ui.printWrappedMessage(String.format(" Error: %s. Please try again later:(", e.getMessage()));
+            String errMsg = Ui.printWrappedMessage(
+                    String.format(" Error: %s. Please try again later:(", e.getMessage()));
             System.out.print(errMsg);
 
             System.exit(0);
         }
 
         // Print welcome message
-        String welcomeMessage = Ui.printWrappedMessage(String.format(" Hi! I'm %s!\n What can I do for you:)", "Paradox"));
+        String welcomeMessage = Ui.printWrappedMessage(
+                String.format(" Hi! I'm %s!\n What can I do for you:)", "Paradox"));
         System.out.print(welcomeMessage);
 
         // Handle user commands

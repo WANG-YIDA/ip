@@ -1,8 +1,8 @@
 package app.model.task;
 
-import java.util.Locale;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class EventTask extends Task {
     private String taskContent;
@@ -31,14 +31,16 @@ public class EventTask extends Task {
         String typeBox = "[E]";
         String startTimeView = this.startTime.format(viewStrFormatter);
         String endTimeView = this.endTime.format(viewStrFormatter);
-        return String.format("%s%s %s (from: %s to: %s)", typeBox, checkBox, this.taskContent, startTimeView, endTimeView);
+        return String.format("%s%s %s (from: %s to: %s)", typeBox, checkBox, this.taskContent,
+                startTimeView, endTimeView);
     }
 
     @Override
     public String printStorageString() {
         String startTimeStorageStr = startTime.format(storageStrFormatter);
         String endTimeStorageStr = endTime.format(storageStrFormatter);
-        String partialStr = String.format("%s/%s/%s/%s/%s", "E", taskContent, "", startTimeStorageStr, endTimeStorageStr);
+        String partialStr = String.format("%s/%s/%s/%s/%s", "E", taskContent, "", startTimeStorageStr,
+                endTimeStorageStr);
         return super.printStorageString(partialStr);
     }
 }

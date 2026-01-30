@@ -1,5 +1,7 @@
 package app.model.command;
 
+import java.io.IOException;
+
 import app.exception.InvalidPatternException;
 import app.exception.InvalidTaskTypeException;
 import app.exception.MissingComponentException;
@@ -7,8 +9,6 @@ import app.exception.RequestRejectedException;
 import app.model.TaskList;
 import app.model.task.TaskType;
 import app.ui.Ui;
-
-import java.io.IOException;
 
 public class AddTodoCommand extends Command {
     private String argument;
@@ -24,8 +24,8 @@ public class AddTodoCommand extends Command {
             String addTodoTaskResult = taskList.addTask(argument, TaskType.TODO);
             String addTodoTaskMsg = Ui.printWrappedMessage(addTodoTaskResult);
             System.out.print(addTodoTaskMsg);
-        } catch (InvalidPatternException | MissingComponentException | RequestRejectedException |
-                 IOException | InvalidTaskTypeException e) {
+        } catch (InvalidPatternException | MissingComponentException |
+                 RequestRejectedException | IOException | InvalidTaskTypeException e) {
             String errMsg = Ui.printWrappedMessage(e.getMessage());
             System.out.print(errMsg);
         }
