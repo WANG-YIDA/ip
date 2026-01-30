@@ -1,8 +1,8 @@
 package app.model.task;
 
-import java.util.Locale;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * Represents a task with a deadline (date and time).

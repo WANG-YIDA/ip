@@ -1,5 +1,7 @@
 package app.model.command;
 
+import java.io.IOException;
+
 import app.exception.InvalidPatternException;
 import app.model.TaskList;
 import app.ui.Ui;
