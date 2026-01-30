@@ -35,6 +35,9 @@ public class UserInputParser {
         case "delete":
             command = new DeleteCommand(argument);
             break;
+        case "find":
+            command = new FindTaskCommand(argument);
+            break;
         default:
             throw new InvalidCommandException(" Invalid Command:(");
         }

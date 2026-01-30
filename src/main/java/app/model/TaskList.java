@@ -41,7 +41,6 @@ public class TaskList {
         this.tasks = TaskListStorage.readTaskList(taskListFile);
     }
 
-
     private static boolean isNumeric(String str) {
         if (str == null) {
             return false;
@@ -195,6 +194,25 @@ public class TaskList {
         }
         taskListView.append(String.format(" Total Number of Tasks: %d", tasks.size()));
         return taskListView.toString();
+    }
+
+    public String printMatchedList(String keyword) {
+        StringBuilder matchedTaskListView = new StringBuilder();
+        matchedTaskListView.append(" Here are the matching tasks in your list:\n");
+        int matchedTaskIndex = 0;
+        for (Task task : tasks) {
+            if (task.contains(keyword)) {
+                String taskView = String.format(" %d.%s\n", ++matchedTaskIndex, task.printTask());
+                matchedTaskListView.append(taskView);
+            }
+        }
+
+        if (matchedTaskIndex == 0) {
+            return " No matching task in your list";
+        }
+
+        matchedTaskListView.append(String.format(" Total Number of Tasks: %d", matchedTaskIndex));
+        return matchedTaskListView.toString();
     }
 
     /**

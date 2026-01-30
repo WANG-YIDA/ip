@@ -45,4 +45,9 @@ public class TodoTask extends Task {
         String partialStr = String.format("%s/%s/%s/%s/%s", "T", taskContent, "", "", "");
         return super.printStorageString(partialStr);
     }
+
+    @Override
+    public Boolean contains(String keyword) {
+        return this.taskContent.contains(keyword);
+    }
 }

@@ -32,6 +32,7 @@ public abstract class Task {
      * Returns a storage-friendly string representation for persistence.
      */
     public abstract String printStorageString();
+    public abstract Boolean contains(String keyword);
 
     /**
      * Helper to produce the storage string given a partial content.

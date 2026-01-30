@@ -67,4 +67,9 @@ public class EventTask extends Task {
                 endTimeStorageStr);
         return super.printStorageString(partialStr);
     }
+
+    @Override
+    public Boolean contains(String keyword) {
+        return this.taskContent.contains(keyword);
+    }
 }

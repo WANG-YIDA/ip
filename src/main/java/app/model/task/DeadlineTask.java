@@ -58,4 +58,9 @@ public class DeadlineTask extends Task {
         String partialStr = String.format("%s/%s/%s/%s/%s", "D", taskContent, deadlineTimeStorageStr, "", "");
         return super.printStorageString(partialStr);
     }
+
+    @Override
+    public Boolean contains(String keyword) {
+        return this.taskContent.contains(keyword);
+    }
 }
