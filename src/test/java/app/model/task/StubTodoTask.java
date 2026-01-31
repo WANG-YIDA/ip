@@ -1,9 +1,18 @@
 package app.model.task;
 
+/**
+ * Test stub representing a simple Todo task used in unit tests.
+ */
 public class StubTodoTask extends Task {
     private final String taskContent;
     private final boolean isDone;
 
+    /**
+     * Create a stub todo task.
+     *
+     * @param taskContent visible content
+     * @param isDone      completion flag
+     */
     public StubTodoTask(String taskContent, boolean isDone) {
         this.taskContent = taskContent;
         this.isDone = isDone;
@@ -18,5 +27,10 @@ public class StubTodoTask extends Task {
     @Override
     public String printTask() {
         return String.format("[%s] %s", this.isDone ? "X" : " ", this.taskContent);
+    }
+
+    @Override
+    public Boolean contains(String keyword) {
+        return this.taskContent.contains(keyword);
     }
 }

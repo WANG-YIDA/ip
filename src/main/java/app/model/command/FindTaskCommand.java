@@ -3,6 +3,9 @@ package app.model.command;
 import app.model.TaskList;
 import app.ui.Ui;
 
+/**
+ * Command to find tasks matching a keyword and print the matching list.
+ */
 public class FindTaskCommand extends Command {
     private String argument;
 

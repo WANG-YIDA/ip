@@ -6,8 +6,6 @@ import app.exception.InvalidPatternException;
 import app.model.TaskList;
 import app.ui.Ui;
 
-import java.io.IOException;
-
 /**
  * Command to delete a task from the task list.
  */

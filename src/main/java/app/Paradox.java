@@ -5,10 +5,13 @@ import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
 import app.exception.InvalidCommandException;
-import app.model.command.Command;
 import app.model.TaskList;
+import app.model.command.Command;
 import app.ui.Ui;
 
+/**
+ * Main entry point for the Paradox application.
+ */
 public class Paradox {
 
     public static void main(String[] args) {

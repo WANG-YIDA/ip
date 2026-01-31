@@ -1,10 +1,10 @@
 package app.model.command;
 
+import java.io.IOException;
+
 import app.exception.InvalidPatternException;
 import app.model.TaskList;
 import app.ui.Ui;
-
-import java.io.IOException;
 
 /**
  * Command to mark a task as not completed (undo mark).

@@ -1,11 +1,14 @@
 package app;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
 import app.exception.InvalidCommandException;
 import app.model.command.AddTodoCommand;
 import app.model.command.Command;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class UserInputParserTest {
     @Test

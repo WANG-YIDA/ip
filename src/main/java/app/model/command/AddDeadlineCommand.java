@@ -10,9 +10,17 @@ import app.model.TaskList;
 import app.model.task.TaskType;
 import app.ui.Ui;
 
+/**
+ * Command to add a deadline task to the task list.
+ */
 public class AddDeadlineCommand extends Command {
     private String argument;
 
+    /**
+     * Creates an AddDeadlineCommand.
+     *
+     * @param argument raw argument text for deadline task
+     */
     public AddDeadlineCommand(String argument) {
         this.argument = argument;
     }
@@ -24,8 +32,8 @@ public class AddDeadlineCommand extends Command {
             String addDeadlineTaskResult = taskList.addTask(argument, TaskType.DEADLINE);
             String addDeadlineTaskMsg = Ui.printWrappedMessage(addDeadlineTaskResult);
             System.out.print(addDeadlineTaskMsg);
-        } catch (InvalidPatternException | MissingComponentException |
-                 RequestRejectedException | IOException | InvalidTaskTypeException e) {
+        } catch (InvalidPatternException | MissingComponentException
+                 | RequestRejectedException | IOException | InvalidTaskTypeException e) {
             String errMsg = Ui.printWrappedMessage(e.getMessage());
             System.out.print(errMsg);
         }

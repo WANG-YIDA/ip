@@ -1,8 +1,6 @@
 package app.dataaccess;
 
-import app.model.task.StubTodoTask;
-import app.model.task.Task;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -10,7 +8,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import app.model.task.StubTodoTask;
+import app.model.task.Task;
 
 public class TaskListStorageTest {
     @Test

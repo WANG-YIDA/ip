@@ -18,7 +18,18 @@ import app.model.task.EventTask;
 import app.model.task.Task;
 import app.model.task.TodoTask;
 
+/**
+ * Helper to read and write Task list data from persistent storage.
+ */
 public class TaskListStorage {
+    /**
+     * Reads tasks from the provided file and returns them as a list.
+     *
+     * @param taskListFile file to read tasks from
+     * @return list of tasks parsed from the file
+     * @throws FileNotFoundException when the file does not exist
+     * @throws DataFormatException   when the file contents are malformed
+     */
     public static List<Task> readTaskList(File taskListFile) throws FileNotFoundException, DataFormatException {
         if (!taskListFile.exists()) {
             throw new FileNotFoundException("Task List Not Found");
@@ -37,9 +48,11 @@ public class TaskListStorage {
 
 
     /**
-     * Parses each component of the task stored in source file, create corresponding task with these components
-     * and store the task in list.
-     * Storage Pattern: Done/TaskType/TaskContent/Deadline(if applicable)/StartTime(if applicable)/EndTime(if applicable).
+     * Parses each component of the task stored in source file, create corresponding task with
+     * these components and store the task in list.
+     * Storage Pattern:
+     * Done/TaskType/TaskContent/Deadline(if applicable)/StartTime(if applicable)/EndTime(if applicable).
+     *
      * @param taskStorageStr the string representation of the task in persistent storage.
      */
     private static void taskParser(String taskStorageStr, List<Task> taskList) throws DataFormatException {
@@ -115,6 +128,13 @@ public class TaskListStorage {
         taskList.add(taskToAdd);
     }
 
+    /**
+     * Appends a single task to the given file.
+     *
+     * @param task         task to write
+     * @param taskListFile destination file
+     * @throws IOException when writing fails
+     */
     public static void writeTask(Task task, File taskListFile) throws IOException {
         FileWriter taskListWriter = new FileWriter(taskListFile, true);
         String taskStorageStr = task.printStorageString();
@@ -123,6 +143,13 @@ public class TaskListStorage {
         taskListWriter.close();
     }
 
+    /**
+     * Writes all provided tasks to the file, replacing any existing content.
+     *
+     * @param taskListFile file to write to
+     * @param taskList     tasks to write
+     * @throws IOException when writing fails
+     */
     public static void writeAllTasks(File taskListFile, List<Task> taskList) throws IOException {
         FileWriter taskListWriter = new FileWriter(taskListFile, false);
 

@@ -15,7 +15,11 @@ import app.exception.InvalidPatternException;
 import app.exception.InvalidTaskTypeException;
 import app.exception.MissingComponentException;
 import app.exception.RequestRejectedException;
-import app.model.task.*;
+import app.model.task.DeadlineTask;
+import app.model.task.EventTask;
+import app.model.task.Task;
+import app.model.task.TaskType;
+import app.model.task.TodoTask;
 
 /**
  * Represents a task list persisted to a file. Provides operations to add,
@@ -87,7 +91,8 @@ public class TaskList {
                 // Error Handling: Pattern Validation
                 if (deadlineTaskParts.length != 2) {
                     throw new InvalidPatternException(
-                            " Please use valid pattern for Deadline task creation (e.g. deadline <task content> /by <deadline>");
+                            " Please use valid pattern for Deadline task creation (e.g. deadline <task content>"
+                                    + " /by <deadline>");
                 }
 
                 String deadlineTaskContent = deadlineTaskParts[0].trim();
@@ -126,7 +131,8 @@ public class TaskList {
                 if (fromIdx == -1 || toIdx == -1 || fromIdx > toIdx || fromIdx != lastFromIdx
                         || toIdx != lastToIdx) {
                     throw new InvalidPatternException(
-                            " Please use pattern for Event task creation (e.g. event <task content> /from <start time> /to <end time>");
+                            " Please use pattern for Event task creation (e.g. event <task content> "
+                                    + " /from <start time> /to <end time>");
                 }
 
                 // Component Parsing
@@ -196,6 +202,12 @@ public class TaskList {
         return taskListView.toString();
     }
 
+    /**
+     * Returns a formatted string with tasks matching the given keyword.
+     *
+     * @param keyword search keyword used to filter tasks
+     * @return formatted matching task list or a message when no matches found
+     */
     public String printMatchedList(String keyword) {
         StringBuilder matchedTaskListView = new StringBuilder();
         matchedTaskListView.append(" Here are the matching tasks in your list:\n");

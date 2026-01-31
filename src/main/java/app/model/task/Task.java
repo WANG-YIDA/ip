@@ -32,7 +32,6 @@ public abstract class Task {
      * Returns a storage-friendly string representation for persistence.
      */
     public abstract String printStorageString();
-    public abstract Boolean contains(String keyword);
 
     /**
      * Helper to produce the storage string given a partial content.
@@ -43,6 +42,8 @@ public abstract class Task {
     public String printStorageString(String partialStr) {
         return isDone ? "1/" + partialStr : "0/" + partialStr;
     }
+
+    public abstract Boolean contains(String keyword);
 
     /**
      * Marks the task as completed.
