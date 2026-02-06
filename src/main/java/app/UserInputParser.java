@@ -5,6 +5,7 @@ import app.model.command.AddDeadlineCommand;
 import app.model.command.AddEventCommand;
 import app.model.command.AddTodoCommand;
 import app.model.command.ByeCommand;
+import app.model.command.Command;
 import app.model.command.DeleteCommand;
 import app.model.command.FindTaskCommand;
 import app.model.command.ListCommand;
@@ -22,7 +23,7 @@ public class UserInputParser {
      * @return Command implementation matching the input
      * @throws InvalidCommandException when the command is not recognized
      */
-    public static app.model.command.Command parse(String userInput) throws InvalidCommandException {
+    public static Command parse(String userInput) throws InvalidCommandException {
         String[] parts = userInput.split(" ", 2);
         String commandName = parts[0].trim();
         String argument = parts.length > 1 ? parts[1].trim() : "";

@@ -40,7 +40,7 @@ public class TaskListStorage {
         List<Task> taskList = new ArrayList<>();
         while (scanner.hasNext()) {
             String taskString = scanner.nextLine();
-            taskParser(taskString, taskList);
+            parseTask(taskString, taskList);
         }
 
         return taskList;
@@ -51,13 +51,13 @@ public class TaskListStorage {
      * Parses each component of the task stored in source file, create corresponding task with
      * these components and store the task in list.
      * Storage Pattern:
-     * Done/TaskType/TaskContent/Deadline(if applicable)/StartTime(if applicable)/EndTime(if applicable).
+     * IsDone/TaskType/TaskContent/Deadline(if applicable)/StartTime(if applicable)/EndTime(if applicable).
      *
      * @param taskStorageStr the string representation of the task in persistent storage.
      */
-    private static void taskParser(String taskStorageStr, List<Task> taskList) throws DataFormatException {
+    private static void parseTask(String taskStorageStr, List<Task> taskList) throws DataFormatException {
         String[] parts = taskStorageStr.split("/", 6);
-        Boolean done = (Integer.parseInt(parts[0].trim(), 10) == 1);
+        Boolean isDone = (Integer.parseInt(parts[0].trim(), 10) == 1);
         String taskContent = parts[2].trim();
         String deadlineStr = parts[3].trim();
         String startTimeStr = parts[4].trim();
@@ -72,7 +72,7 @@ public class TaskListStorage {
                 throw new DataFormatException(errMsg);
             }
 
-            taskToAdd = new TodoTask(taskContent, done);
+            taskToAdd = new TodoTask(taskContent, isDone);
             break;
         case "D":
             if (taskContent.isEmpty()) {
@@ -93,7 +93,7 @@ public class TaskListStorage {
                 throw new DataFormatException("Invalid Deadline Time Format");
             }
 
-            taskToAdd = new DeadlineTask(taskContent, deadline, done);
+            taskToAdd = new DeadlineTask(taskContent, deadline, isDone);
             break;
         case "E":
             if (taskContent.isEmpty()) {
@@ -119,7 +119,7 @@ public class TaskListStorage {
                 throw new DataFormatException("Invalid Event Time Format");
             }
 
-            taskToAdd = new EventTask(taskContent, startTime, endTime, done);
+            taskToAdd = new EventTask(taskContent, startTime, endTime, isDone);
             break;
         default:
             throw new DataFormatException("Invalid Task Type");

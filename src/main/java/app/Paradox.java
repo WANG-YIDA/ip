@@ -37,7 +37,6 @@ public class Paradox {
 
         // Handle user commands
         String userInput = scanner.nextLine();
-
         while (true) {
             try {
                 Command command = UserInputParser.parse(userInput);
