@@ -6,9 +6,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import app.exception.InvalidCommandException;
-import app.model.command.AddTodoCommand;
-import app.model.command.Command;
+import app.exceptions.InvalidCommandException;
+import app.models.command.AddTodoCommand;
+import app.models.command.Command;
+import app.parsers.UserInputParser;
 
 public class UserInputParserTest {
     @Test

@@ -1,0 +1,43 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, #f0f0f0);
+    -fx-border-color: #000000 #000000 #000000 #000000;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-font-size: 16px;
+    -fx-font-family: "Eagle Lake", serif;
+    -fx-text-fill: #000000;
+
+    /* subtle outer shadow for lift + soft inner shadow for depth */
+    -fx-effect:
+        dropshadow(gaussian, rgba(0,0,0,0.24), 10, 0.25, 0, 5),
+        innershadow(gaussian, rgba(0,0,0,0.06), 6, 0.0, 0, 2);
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-font-size: 16px;
+    -fx-font-family: "Eagle Lake", serif;
+    -fx-text-fill: #000000;
+
+    -fx-effect:
+        dropshadow(gaussian, rgba(0,0,0,0.18), 8, 0.2, 0, 4),
+        innershadow(gaussian, rgba(0,0,0,0.04), 5, 0.0, 0, 1);
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 0.75;
+    -fx-scale-y: 0.75;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+
+    /* subtle black frame */
+    -fx-border-color: #000000;
+    -fx-border-width: 2px;
+}
