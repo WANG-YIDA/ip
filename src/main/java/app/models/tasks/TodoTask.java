@@ -1,4 +1,4 @@
-package app.models.task;
+package app.models.tasks;
 
 /**
  * Represents a simple to-do task (no date/time).

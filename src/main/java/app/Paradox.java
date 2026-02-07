@@ -5,7 +5,7 @@ import java.util.zip.DataFormatException;
 
 import app.exceptions.InvalidCommandException;
 import app.models.TaskList;
-import app.models.command.Command;
+import app.models.commands.Command;
 import app.parsers.UserInputParser;
 
 /** Paradox main application. */

@@ -1,4 +1,4 @@
-package app.models.task;
+package app.models.tasks;
 
 /**
  * Test stub representing a simple Todo task used in unit tests.

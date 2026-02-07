@@ -1,4 +1,4 @@
-package app.models.task;
+package app.models.tasks;
 
 /**
  * Abstract base for tasks (todo, deadline, event). Tracks completion state

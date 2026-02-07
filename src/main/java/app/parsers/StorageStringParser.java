@@ -6,10 +6,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.zip.DataFormatException;
 
-import app.models.task.DeadlineTask;
-import app.models.task.EventTask;
-import app.models.task.Task;
-import app.models.task.TodoTask;
+import app.models.tasks.DeadlineTask;
+import app.models.tasks.EventTask;
+import app.models.tasks.Task;
+import app.models.tasks.TodoTask;
 
 /**
  * Utility class to parse a task storage line into a Task object.

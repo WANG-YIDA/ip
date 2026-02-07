@@ -1,16 +1,16 @@
 package app.parsers;
 
 import app.exceptions.InvalidCommandException;
-import app.models.command.AddDeadlineCommand;
-import app.models.command.AddEventCommand;
-import app.models.command.AddTodoCommand;
-import app.models.command.ByeCommand;
-import app.models.command.Command;
-import app.models.command.DeleteCommand;
-import app.models.command.FindTaskCommand;
-import app.models.command.ListCommand;
-import app.models.command.MarkCommand;
-import app.models.command.UnmarkCommand;
+import app.models.commands.AddDeadlineCommand;
+import app.models.commands.AddEventCommand;
+import app.models.commands.AddTodoCommand;
+import app.models.commands.ByeCommand;
+import app.models.commands.Command;
+import app.models.commands.DeleteCommand;
+import app.models.commands.FindTaskCommand;
+import app.models.commands.ListCommand;
+import app.models.commands.MarkCommand;
+import app.models.commands.UnmarkCommand;
 
 /**
  * Parses raw user input and returns the corresponding Command object.
@@ -28,7 +28,7 @@ public class UserInputParser {
         String commandName = parts[0].trim();
         String argument = parts.length > 1 ? parts[1].trim() : "";
 
-        app.models.command.Command command;
+        app.models.commands.Command command;
         switch (commandName) {
         case "bye":
             command = new ByeCommand();

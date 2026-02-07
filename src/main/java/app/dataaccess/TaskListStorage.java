@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
-import app.models.task.Task;
+import app.models.tasks.Task;
 import app.parsers.StorageStringParser;
 
 /**

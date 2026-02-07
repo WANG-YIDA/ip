@@ -1,4 +1,4 @@
-package app.models.task;
+package app.models.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

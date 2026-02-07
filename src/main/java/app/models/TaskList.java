@@ -15,11 +15,11 @@ import app.exceptions.InvalidPatternException;
 import app.exceptions.InvalidTaskTypeException;
 import app.exceptions.MissingComponentException;
 import app.exceptions.RequestRejectedException;
-import app.models.task.DeadlineTask;
-import app.models.task.EventTask;
-import app.models.task.Task;
-import app.models.task.TaskType;
-import app.models.task.TodoTask;
+import app.models.tasks.DeadlineTask;
+import app.models.tasks.EventTask;
+import app.models.tasks.Task;
+import app.models.tasks.TaskType;
+import app.models.tasks.TodoTask;
 
 /**
  * Represents a task list persisted to a file. Provides operations to add,

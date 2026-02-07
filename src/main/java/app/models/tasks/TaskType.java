@@ -1,4 +1,4 @@
-package app.models.task;
+package app.models.tasks;
 
 /**
  * Enumeration of supported task types.

@@ -10,8 +10,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import app.models.task.StubTodoTask;
-import app.models.task.Task;
+import app.models.tasks.StubTodoTask;
+import app.models.tasks.Task;
 
 public class TaskListStorageTest {
     @Test

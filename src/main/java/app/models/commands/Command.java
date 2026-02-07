@@ -1,4 +1,4 @@
-package app.models.command;
+package app.models.commands;
 
 import app.models.TaskList;
 

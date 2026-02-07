@@ -1,4 +1,4 @@
-package app.models.command;
+package app.models.commands;
 
 import java.io.IOException;
 
@@ -7,7 +7,7 @@ import app.exceptions.InvalidTaskTypeException;
 import app.exceptions.MissingComponentException;
 import app.exceptions.RequestRejectedException;
 import app.models.TaskList;
-import app.models.task.TaskType;
+import app.models.tasks.TaskType;
 
 /**
  * Command to add a to-do task to the task list.

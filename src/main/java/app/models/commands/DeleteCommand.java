@@ -1,4 +1,4 @@
-package app.models.command;
+package app.models.commands;
 
 import java.io.IOException;
 
@@ -6,32 +6,32 @@ import app.exceptions.InvalidPatternException;
 import app.models.TaskList;
 
 /**
- * Command to mark a task as completed.
+ * Command to delete a task from the task list.
  */
-public class MarkCommand extends Command {
+public class DeleteCommand extends Command {
     private String argument;
 
     /**
-     * Creates a MarkCommand.
+     * Creates a DeleteCommand.
      *
-     * @param argument identifier or index of the task to mark
+     * @param argument identifier or index of the task to delete
      */
-    public MarkCommand(String argument) {
+    public DeleteCommand(String argument) {
         this.argument = argument;
     }
 
     /**
-     * Executes the command by marking the specified task and printing the
+     * Executes the command by deleting the specified task and printing the
      * result. Errors are handled and printed.
      *
      * @param taskList the task list to operate on
      */
     @Override
     public String execute(TaskList taskList) {
-        // Mark a task as done
+        // Delete a task
         try {
-            String markResult = taskList.mark(argument);
-            return markResult;
+            String deleteResult = taskList.delete(argument);
+            return deleteResult;
         } catch (InvalidPatternException | IOException e) {
             return e.getMessage();
         }
