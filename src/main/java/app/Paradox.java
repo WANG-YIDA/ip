@@ -1,52 +1,51 @@
 package app;
 
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.zip.DataFormatException;
 
-import app.exception.InvalidCommandException;
-import app.model.TaskList;
-import app.model.command.Command;
-import app.ui.Ui;
+import app.exceptions.InvalidCommandException;
+import app.models.TaskList;
+import app.models.command.Command;
+import app.parsers.UserInputParser;
 
-/**
- * Main entry point for the Paradox application.
- */
+/** Paradox main application. */
 public class Paradox {
+    private TaskList taskList;
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
+    /**
+     * Load tasks from the given file path.
+     *
+     * @param taskListPath path to the stored task list
+     * @return welcome message on success, or an error message on failure
+     */
+    public String initialize(String taskListPath) {
         // create a task list and specific read source and write destination
-        TaskList taskList = null;
         try {
-            String taskListPath = "./src/main/resources/taskList.txt";
             taskList = new TaskList(taskListPath);
         } catch (FileNotFoundException | DataFormatException e) {
-            String errMsg = Ui.printWrappedMessage(
-                    String.format(" Error: %s. Please try again later:(", e.getMessage()));
-            System.out.print(errMsg);
-
-            System.exit(0);
+            String errMsg = String.format(" Error: %s. Please try again later:(", e.getMessage());
+            return errMsg;
         }
 
         // Print welcome message
-        String welcomeMessage = Ui.printWrappedMessage(
-                String.format(" Hi! I'm %s!\n What can I do for you:)", "Paradox"));
-        System.out.print(welcomeMessage);
+        String welcomeMessage = String.format(" Hi! I'm %s!\n What can I do for you:)", "Paradox");
+        return welcomeMessage;
+    }
 
+    /**
+     * Parse and execute a single user input line.
+     *
+     * @param userInput raw user input
+     * @return the result message (success or error) to show to the user
+     */
+    public String getResponse(String userInput) {
         // Handle user commands
-        String userInput = scanner.nextLine();
-        while (true) {
-            try {
-                Command command = UserInputParser.parse(userInput);
-                command.execute(taskList);
-            } catch (InvalidCommandException e) {
-                System.out.print(Ui.printWrappedMessage(e.getMessage()));
-            }
-
-            // Read next user input
-            userInput = scanner.nextLine();
+        try {
+            Command command = UserInputParser.parse(userInput);
+            String response = command.execute(taskList);
+            return response;
+        } catch (InvalidCommandException e) {
+            return e.getMessage();
         }
     }
 }
