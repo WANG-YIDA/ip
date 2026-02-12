@@ -24,6 +24,8 @@ public class UserInputParser {
      * @throws InvalidCommandException when the command is not recognized
      */
     public static Command parse(String userInput) throws InvalidCommandException {
+        assert userInput != null : "User input cannot be null";
+
         String[] parts = userInput.split(" ", 2);
         String commandName = parts[0].trim();
         String argument = parts.length > 1 ? parts[1].trim() : "";

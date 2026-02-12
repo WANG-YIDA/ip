@@ -13,6 +13,8 @@ public class TodoTask extends Task {
      */
     public TodoTask(String taskContent) {
         super();
+        assert taskContent != null : "Task content cannot be null";
+        assert !taskContent.trim().isEmpty() : "Task content cannot be empty";
         this.taskContent = taskContent;
     }
 
@@ -24,6 +26,9 @@ public class TodoTask extends Task {
      */
     public TodoTask(String taskContent, Boolean isDone) {
         super(isDone);
+        assert taskContent != null : "Task content cannot be null";
+        assert !taskContent.trim().isEmpty() : "Task content cannot be empty";
+        assert isDone != null : "isDone flag cannot be null";
         this.taskContent = taskContent;
     }
 
