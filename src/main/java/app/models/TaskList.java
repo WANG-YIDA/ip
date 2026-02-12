@@ -77,7 +77,7 @@ public class TaskList {
         } else if (tasks.size() >= capacity) {
             throw new RequestRejectedException(" Task list is full, cannot add new task:(");
         } else {
-            Task newTask = null;
+            Task newTask;
             switch (type) {
             case TODO:
                 String todoTaskContent = argument;
