@@ -23,6 +23,11 @@ public class EventTask extends Task {
      */
     public EventTask(String taskContent, LocalDateTime startTime, LocalDateTime endTime) {
         super();
+        assert taskContent != null : "Task content cannot be null";
+        assert !taskContent.trim().isEmpty() : "Task content cannot be empty";
+        assert startTime != null : "Start time cannot be null";
+        assert endTime != null : "End time cannot be null";
+        assert !endTime.isBefore(startTime) : "End time must be after or equal to start time";
         this.taskContent = taskContent;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -38,6 +43,12 @@ public class EventTask extends Task {
      */
     public EventTask(String taskContent, LocalDateTime startTime, LocalDateTime endTime, Boolean isDone) {
         super(isDone);
+        assert taskContent != null : "Task content cannot be null";
+        assert !taskContent.trim().isEmpty() : "Task content cannot be empty";
+        assert startTime != null : "Start time cannot be null";
+        assert endTime != null : "End time cannot be null";
+        assert !endTime.isBefore(startTime) : "End time must be after or equal to start time";
+        assert isDone != null : "isDone flag cannot be null";
         this.taskContent = taskContent;
         this.startTime = startTime;
         this.endTime = endTime;

@@ -39,6 +39,9 @@ public class TaskList {
      * @throws DataFormatException   if the stored data is malformed
      */
     public TaskList(String taskListPath) throws FileNotFoundException, DataFormatException {
+        assert taskListPath != null : "Task list path cannot be null";
+        assert !taskListPath.trim().isEmpty() : "Task list path cannot be empty";
+
         this.taskListFile = new File(taskListPath);
 
         // load task list from source file
@@ -72,6 +75,10 @@ public class TaskList {
      */
     public String addTask(String argument, TaskType type) throws InvalidPatternException, RequestRejectedException,
             MissingComponentException, IOException, InvalidTaskTypeException {
+        assert argument != null : "Argument cannot be null";
+        assert type != null : "Task type cannot be null";
+        assert tasks != null : "Task list should be initialized";
+
         if (argument.isEmpty()) {
             throw new InvalidPatternException(" Please specify more details:)");
         } else if (tasks.size() >= capacity) {
@@ -174,6 +181,8 @@ public class TaskList {
             }
 
             tasks.add(newTask);
+            assert tasks.contains(newTask) : "Task should be in the list after adding";
+
             TaskListStorage.writeTask(newTask, taskListFile);
             String taskView = newTask.printTask();
 
@@ -209,6 +218,8 @@ public class TaskList {
      * @return formatted matching task list or a message when no matches found
      */
     public String printMatchedList(String keyword) {
+        assert keyword != null : "Keyword cannot be null";
+
         StringBuilder matchedTaskListView = new StringBuilder();
         matchedTaskListView.append(" Here are the matching tasks in your list:\n");
         int matchedTaskIndex = 0;
@@ -236,9 +247,12 @@ public class TaskList {
      * @throws IOException             if writing to storage fails
      */
     public String mark(String argument) throws InvalidPatternException, IOException {
+        assert argument != null : "Argument cannot be null";
+
         if (argument.isEmpty()
                 || !TaskList.isNumeric(argument)
-                || Integer.parseInt(argument.trim()) > tasks.size()) {
+                || Integer.parseInt(argument.trim()) > tasks.size()
+                || Integer.parseInt(argument.trim()) <= 0) {
             throw new InvalidPatternException(" Please specify a valid task number to mark:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
@@ -259,9 +273,12 @@ public class TaskList {
      * @throws IOException             if writing to storage fails
      */
     public String unmark(String argument) throws InvalidPatternException, IOException {
+        assert argument != null : "Argument cannot be null";
+
         if (argument.isEmpty()
                 || !TaskList.isNumeric(argument)
-                || Integer.parseInt(argument.trim()) > tasks.size()) {
+                || Integer.parseInt(argument.trim()) > tasks.size()
+                || Integer.parseInt(argument.trim()) <= 0) {
             throw new InvalidPatternException(" Please specify a valid task number to unmark:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
@@ -282,9 +299,12 @@ public class TaskList {
      * @throws IOException             if writing to storage fails
      */
     public String delete(String argument) throws InvalidPatternException, IOException {
+        assert argument != null : "Argument cannot be null";
+
         if (argument.isEmpty()
                 || !TaskList.isNumeric(argument)
-                || Integer.parseInt(argument.trim()) > tasks.size()) {
+                || Integer.parseInt(argument.trim()) > tasks.size()
+                || Integer.parseInt(argument.trim()) <= 0) {
             throw new InvalidPatternException(" Please specify a valid task number to delete:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());

@@ -25,6 +25,8 @@ public class TaskListStorage {
      * @throws DataFormatException   when the file contents are malformed
      */
     public static List<Task> readTaskList(File taskListFile) throws FileNotFoundException, DataFormatException {
+        assert taskListFile != null : "Task list file cannot be null";
+
         if (!taskListFile.exists()) {
             throw new FileNotFoundException("Task List Not Found");
         }
@@ -49,7 +51,11 @@ public class TaskListStorage {
      * @throws DataFormatException if the storage string is corrupted or cannot be parsed
      */
     private static void addTaskStorage(String taskStorageStr, List<Task> taskList) throws DataFormatException {
+        assert taskStorageStr != null : "Task storage string cannot be null";
+        assert taskList != null : "Task list cannot be null";
+
         Task taskToAdd = StorageStringParser.parseTaskStorage(taskStorageStr);
+        assert taskToAdd != null : "Parsed task cannot be null";
         taskList.add(taskToAdd);
     }
 
@@ -61,8 +67,12 @@ public class TaskListStorage {
      * @throws IOException when writing fails
      */
     public static void writeTask(Task task, File taskListFile) throws IOException {
+        assert task != null : "Task to write cannot be null";
+        assert taskListFile != null : "Task list file cannot be null";
+
         FileWriter taskListWriter = new FileWriter(taskListFile, true);
         String taskStorageStr = task.printStorageString();
+        assert taskStorageStr != null : "Task storage string cannot be null";
 
         taskListWriter.write(taskStorageStr + System.lineSeparator());
         taskListWriter.close();
@@ -76,9 +86,13 @@ public class TaskListStorage {
      * @throws IOException when writing fails
      */
     public static void writeAllTasks(File taskListFile, List<Task> taskList) throws IOException {
+        assert taskListFile != null : "Task list file cannot be null";
+        assert taskList != null : "Task list cannot be null";
+
         FileWriter taskListWriter = new FileWriter(taskListFile, false);
 
         for (Task task : taskList) {
+            assert task != null : "Individual task in list cannot be null";
             String taskStorageStr = task.printStorageString();
             taskListWriter.write(taskStorageStr + System.lineSeparator());
         }
