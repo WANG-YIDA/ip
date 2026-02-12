@@ -26,7 +26,12 @@ public class StorageStringParser {
      * @throws DataFormatException if the storage string is corrupted or cannot be parsed
      */
     public static Task parseTaskStorage(String taskStorageStr) throws DataFormatException {
+        assert taskStorageStr != null : "Task storage string cannot be null";
+        assert !taskStorageStr.trim().isEmpty() : "Task storage string cannot be empty";
+
         String[] parts = taskStorageStr.split("/", 6);
+        assert parts.length == 6 : "Storage string must have exactly 6 parts";
+
         Boolean isDone = (Integer.parseInt(parts[0].trim(), 10) == 1);
         String taskContent = parts[2].trim();
         String deadlineStr = parts[3].trim();

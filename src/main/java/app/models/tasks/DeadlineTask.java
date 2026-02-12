@@ -21,6 +21,9 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String taskContent, LocalDateTime deadline) {
         super();
+        assert taskContent != null : "Task content cannot be null";
+        assert !taskContent.trim().isEmpty() : "Task content cannot be empty";
+        assert deadline != null : "Deadline cannot be null";
         this.taskContent = taskContent;
         this.deadline = deadline;
     }
@@ -34,6 +37,10 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String taskContent, LocalDateTime deadline, Boolean isDone) {
         super(isDone);
+        assert taskContent != null : "Task content cannot be null";
+        assert !taskContent.trim().isEmpty() : "Task content cannot be empty";
+        assert deadline != null : "Deadline cannot be null";
+        assert isDone != null : "isDone flag cannot be null";
         this.taskContent = taskContent;
         this.deadline = deadline;
     }
