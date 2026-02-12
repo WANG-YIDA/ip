@@ -116,7 +116,8 @@ public class TaskList {
         return new TodoTask(todoTaskContent);
     }
 
-    private static DeadlineTask processAddDeadlineTask(String argument) throws InvalidPatternException, MissingComponentException {
+    private static DeadlineTask processAddDeadlineTask(String argument)
+            throws InvalidPatternException, MissingComponentException {
         // Component Parsing
         String[] deadlineTaskParts = argument.split("/by");
 
@@ -153,7 +154,8 @@ public class TaskList {
         return new DeadlineTask(deadlineTaskContent, deadline);
     }
 
-    private static EventTask processAddEventTask(String argument) throws InvalidPatternException, MissingComponentException {
+    private static EventTask processAddEventTask(String argument)
+            throws InvalidPatternException, MissingComponentException {
         // Error Handling: Pattern Validation
         int fromIdx = argument.indexOf("/from");
         int lastFromIdx = argument.lastIndexOf("/from");

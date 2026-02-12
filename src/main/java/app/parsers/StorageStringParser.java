@@ -89,8 +89,8 @@ public class StorageStringParser {
         return new DeadlineTask(taskContent, deadline, isDone);
     }
 
-    private static EventTask parseEventTaskStorage(Boolean isDone, String taskContent, String startTimeStr, String endTimeStr)
-            throws DataFormatException {
+    private static EventTask parseEventTaskStorage(Boolean isDone, String taskContent,
+            String startTimeStr, String endTimeStr) throws DataFormatException {
         if (taskContent.isEmpty()) {
             String errMsg = "Task Content Missing";
             throw new DataFormatException(errMsg);
