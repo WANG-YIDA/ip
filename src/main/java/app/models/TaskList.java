@@ -80,93 +80,13 @@ public class TaskList {
             Task newTask = null;
             switch (type) {
             case TODO:
-                String todoTaskContent = argument;
-
-                newTask = new TodoTask(todoTaskContent);
+                newTask = processAddTodoTask(argument);
                 break;
             case DEADLINE:
-                // Component Parsing
-                String[] deadlineTaskParts = argument.split("/by");
-
-                // Error Handling: Pattern Validation
-                if (deadlineTaskParts.length != 2) {
-                    throw new InvalidPatternException(
-                            " Please use valid pattern for Deadline task creation (e.g. deadline <task content>"
-                                    + " /by <deadline>");
-                }
-
-                String deadlineTaskContent = deadlineTaskParts[0].trim();
-                String deadlineStr = deadlineTaskParts[1].trim();
-
-                // Error Handling: Empty Components
-                if (deadlineStr.isEmpty()) {
-                    String errMsg = " Please add a deadline for this task:)";
-                    throw new MissingComponentException(errMsg);
-                } else if (deadlineTaskContent.isEmpty()) {
-                    String errMsg = " Please specific the task content:)";
-                    throw new MissingComponentException(errMsg);
-                }
-
-                // parse deadline
-                LocalDateTime deadline;
-                try {
-                    DateTimeFormatter deadlineTimeFormatter = DateTimeFormatter.ofPattern(
-                            "yyyy-MM-dd HH:mm", Locale.ENGLISH);
-                    deadline = LocalDateTime.parse(deadlineStr, deadlineTimeFormatter);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidPatternException(
-                            " Please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
-                }
-
-                newTask = new DeadlineTask(deadlineTaskContent, deadline);
+                newTask = processAddDeadlineTask(argument);
                 break;
             case EVENT:
-                // Error Handling: Pattern Validation
-                int fromIdx = argument.indexOf("/from");
-                int lastFromIdx = argument.lastIndexOf("/from");
-
-                int toIdx = argument.indexOf("/to");
-                int lastToIdx = argument.lastIndexOf("/to");
-
-                if (fromIdx == -1 || toIdx == -1 || fromIdx > toIdx || fromIdx != lastFromIdx
-                        || toIdx != lastToIdx) {
-                    throw new InvalidPatternException(
-                            " Please use pattern for Event task creation (e.g. event <task content> "
-                                    + " /from <start time> /to <end time>");
-                }
-
-                // Component Parsing
-                String[] eventTaskParts = argument.split("/from|/to", 3);
-                String eventTaskContent = eventTaskParts[0].trim();
-                String startTimeStr = eventTaskParts[1].trim();
-                String endTimeStr = eventTaskParts[2].trim();
-
-                // Error Handling: Empty Components
-                if (eventTaskContent.isEmpty()) {
-                    String errMsg = " Please specify task content:)";
-                    throw new MissingComponentException(errMsg);
-                } else if (startTimeStr.isEmpty()) {
-                    String errMsg = " Please specific the starting time of the task:)";
-                    throw new MissingComponentException(errMsg);
-                } else if (endTimeStr.isEmpty()) {
-                    String errMsg = " Please specific the ending time of the task:)";
-                    throw new MissingComponentException(errMsg);
-                }
-
-                // parse event startTime and endTime
-                LocalDateTime startTime;
-                LocalDateTime endTime;
-                try {
-                    DateTimeFormatter eventTimeFormatter = DateTimeFormatter.ofPattern(
-                            "yyyy-MM-dd HH:mm", Locale.ENGLISH);
-                    startTime = LocalDateTime.parse(startTimeStr, eventTimeFormatter);
-                    endTime = LocalDateTime.parse(endTimeStr, eventTimeFormatter);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidPatternException(
-                            " Please use event time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
-                }
-
-                newTask = new EventTask(eventTaskContent, startTime, endTime);
+                newTask = processAddEventTask(argument);
                 break;
             default:
                 throw new InvalidTaskTypeException(
@@ -180,6 +100,97 @@ public class TaskList {
             return String.format(" Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list:)",
                     taskView, tasks.size());
         }
+    }
+
+    private static TodoTask processAddTodoTask(String argument) {
+        String todoTaskContent = argument;
+        return new TodoTask(todoTaskContent);
+    }
+
+    private static DeadlineTask processAddDeadlineTask(String argument) throws InvalidPatternException, MissingComponentException {
+        // Component Parsing
+        String[] deadlineTaskParts = argument.split("/by");
+
+        // Error Handling: Pattern Validation
+        if (deadlineTaskParts.length != 2) {
+            throw new InvalidPatternException(
+                    " Please use valid pattern for Deadline task creation (e.g. deadline <task content>"
+                            + " /by <deadline>");
+        }
+
+        String deadlineTaskContent = deadlineTaskParts[0].trim();
+        String deadlineStr = deadlineTaskParts[1].trim();
+
+        // Error Handling: Empty Components
+        if (deadlineStr.isEmpty()) {
+            String errMsg = " Please add a deadline for this task:)";
+            throw new MissingComponentException(errMsg);
+        } else if (deadlineTaskContent.isEmpty()) {
+            String errMsg = " Please specific the task content:)";
+            throw new MissingComponentException(errMsg);
+        }
+
+        // parse deadline
+        LocalDateTime deadline;
+        try {
+            DateTimeFormatter deadlineTimeFormatter = DateTimeFormatter.ofPattern(
+                    "yyyy-MM-dd HH:mm", Locale.ENGLISH);
+            deadline = LocalDateTime.parse(deadlineStr, deadlineTimeFormatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidPatternException(
+                    " Please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+        }
+
+        return new DeadlineTask(deadlineTaskContent, deadline);
+    }
+
+    private static EventTask processAddEventTask(String argument) throws InvalidPatternException, MissingComponentException {
+        // Error Handling: Pattern Validation
+        int fromIdx = argument.indexOf("/from");
+        int lastFromIdx = argument.lastIndexOf("/from");
+
+        int toIdx = argument.indexOf("/to");
+        int lastToIdx = argument.lastIndexOf("/to");
+
+        if (fromIdx == -1 || toIdx == -1 || fromIdx > toIdx || fromIdx != lastFromIdx
+                || toIdx != lastToIdx) {
+            throw new InvalidPatternException(
+                    " Please use pattern for Event task creation (e.g. event <task content> "
+                            + " /from <start time> /to <end time>");
+        }
+
+        // Component Parsing
+        String[] eventTaskParts = argument.split("/from|/to", 3);
+        String eventTaskContent = eventTaskParts[0].trim();
+        String startTimeStr = eventTaskParts[1].trim();
+        String endTimeStr = eventTaskParts[2].trim();
+
+        // Error Handling: Empty Components
+        if (eventTaskContent.isEmpty()) {
+            String errMsg = " Please specify task content:)";
+            throw new MissingComponentException(errMsg);
+        } else if (startTimeStr.isEmpty()) {
+            String errMsg = " Please specific the starting time of the task:)";
+            throw new MissingComponentException(errMsg);
+        } else if (endTimeStr.isEmpty()) {
+            String errMsg = " Please specific the ending time of the task:)";
+            throw new MissingComponentException(errMsg);
+        }
+
+        // parse event startTime and endTime
+        LocalDateTime startTime;
+        LocalDateTime endTime;
+        try {
+            DateTimeFormatter eventTimeFormatter = DateTimeFormatter.ofPattern(
+                    "yyyy-MM-dd HH:mm", Locale.ENGLISH);
+            startTime = LocalDateTime.parse(startTimeStr, eventTimeFormatter);
+            endTime = LocalDateTime.parse(endTimeStr, eventTimeFormatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidPatternException(
+                    " Please use event time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+        }
+
+        return new EventTask(eventTaskContent, startTime, endTime);
     }
 
     /**
