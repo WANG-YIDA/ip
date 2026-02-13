@@ -5,6 +5,9 @@ import java.io.IOException;
 import app.exceptions.InvalidPatternException;
 import app.models.TaskList;
 
+/**
+ * Command to update a task in the task list.
+ */
 public class UpdateCommand extends Command {
     private String argument;
 

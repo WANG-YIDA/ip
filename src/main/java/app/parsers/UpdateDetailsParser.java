@@ -7,9 +7,19 @@ import java.util.Locale;
 
 import app.exceptions.InvalidPatternException;
 
+/**
+ * Parser for update command details with various tags.
+ */
 public class UpdateDetailsParser {
+    /**
+     * Parses the task content from update details.
+     *
+     * @param updateDetails the update details string
+     * @return the new task content, or null if not specified
+     * @throws InvalidPatternException if the pattern is invalid
+     */
     public static String parseTaskContent(String updateDetails) throws InvalidPatternException {
-        String newContent =  parseTagValue(updateDetails, "/content");
+        String newContent = parseTagValue(updateDetails, "/content");
         if (newContent == null) {
             return null;
         }
@@ -20,8 +30,15 @@ public class UpdateDetailsParser {
         return newContent;
     }
 
+    /**
+     * Parses the deadline from update details.
+     *
+     * @param updateDetails the update details string
+     * @return the new deadline, or null if not specified
+     * @throws InvalidPatternException if the pattern is invalid
+     */
     public static LocalDateTime parseDeadline(String updateDetails) throws InvalidPatternException {
-        String newDeadlineStr =  parseTagValue(updateDetails, "/deadline");
+        String newDeadlineStr = parseTagValue(updateDetails, "/deadline");
         if (newDeadlineStr == null) {
             return null;
         }
@@ -43,8 +60,15 @@ public class UpdateDetailsParser {
         return newDeadline;
     }
 
+    /**
+     * Parses the start time from update details.
+     *
+     * @param updateDetails the update details string
+     * @return the new start time, or null if not specified
+     * @throws InvalidPatternException if the pattern is invalid
+     */
     public static LocalDateTime parseStartTime(String updateDetails) throws InvalidPatternException {
-        String newStartTimeStr =  parseTagValue(updateDetails, "/startTime");
+        String newStartTimeStr = parseTagValue(updateDetails, "/startTime");
         if (newStartTimeStr == null) {
             return null;
         }
@@ -66,8 +90,15 @@ public class UpdateDetailsParser {
         return newStartTime;
     }
 
+    /**
+     * Parses the end time from update details.
+     *
+     * @param updateDetails the update details string
+     * @return the new end time, or null if not specified
+     * @throws InvalidPatternException if the pattern is invalid
+     */
     public static LocalDateTime parseEndTime(String updateDetails) throws InvalidPatternException {
-        String newEndTimeStr =  parseTagValue(updateDetails, "/endTime");
+        String newEndTimeStr = parseTagValue(updateDetails, "/endTime");
         if (newEndTimeStr == null) {
             return null;
         }

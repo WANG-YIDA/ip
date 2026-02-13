@@ -330,6 +330,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Updates a task in the task list based on the argument.
+     *
+     * @param argument the argument string containing task index and update details
+     * @return the result message indicating the update status
+     * @throws InvalidPatternException if the pattern is invalid
+     * @throws IOException if there's an error saving the task list
+     */
     public String updateTask(String argument) throws InvalidPatternException, IOException {
         String[] parts = argument.split(" ", 2);
         if (parts.length != 2) {
@@ -341,7 +349,7 @@ public class TaskList {
 
         if (!TaskList.isNumeric(index)
                 || Integer.parseInt(index) > tasks.size()
-                || Integer.parseInt(index) <= 0){
+                || Integer.parseInt(index) <= 0) {
             throw new InvalidPatternException(" Please specify a valid task number to update:(");
         }
 
