@@ -11,6 +11,7 @@ import app.models.commands.FindTaskCommand;
 import app.models.commands.ListCommand;
 import app.models.commands.MarkCommand;
 import app.models.commands.UnmarkCommand;
+import app.models.commands.UpdateCommand;
 
 /**
  * Parses raw user input and returns the corresponding Command object.
@@ -58,6 +59,9 @@ public class UserInputParser {
             break;
         case "find":
             command = new FindTaskCommand(argument);
+            break;
+        case "update":
+            command = new UpdateCommand(argument);
             break;
         default:
             throw new InvalidCommandException(" Invalid Command:(");

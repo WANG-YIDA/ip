@@ -30,7 +30,7 @@ public class UnmarkCommand extends Command {
     public String execute(TaskList taskList) {
         // Mark a task as undone
         try {
-            String unmarkResult = taskList.unmark(argument);
+            String unmarkResult = taskList.unmarkTask(argument);
             return unmarkResult;
         } catch (InvalidPatternException | IOException e) {
             return e.getMessage();

@@ -1,5 +1,8 @@
 package app.models.tasks;
 
+import app.exceptions.InvalidPatternException;
+import app.parsers.UpdateDetailsParser;
+
 /**
  * Represents a simple to-do task (no date/time).
  */
@@ -54,5 +57,20 @@ public class TodoTask extends Task {
     @Override
     public Boolean contains(String keyword) {
         return this.taskContent.contains(keyword);
+    }
+
+    @Override
+    public void update(String updateDetails) throws InvalidPatternException {
+        String newContent = UpdateDetailsParser.parseTaskContent(updateDetails);
+        boolean isUpdated = false;
+
+        if (newContent != null) {
+            this.taskContent = newContent;
+            isUpdated = true;
+        }
+
+        if (!isUpdated) {
+            throw new InvalidPatternException(" Please specify valid value(s) to update");
+        }
     }
 }

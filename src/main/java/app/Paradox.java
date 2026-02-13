@@ -3,7 +3,6 @@ package app;
 import java.io.FileNotFoundException;
 import java.util.zip.DataFormatException;
 
-import app.exceptions.InvalidCommandException;
 import app.models.TaskList;
 import app.models.commands.Command;
 import app.parsers.UserInputParser;
@@ -44,7 +43,7 @@ public class Paradox {
             Command command = UserInputParser.parse(userInput);
             String response = command.execute(taskList);
             return response;
-        } catch (InvalidCommandException e) {
+        } catch (Exception e) {
             return e.getMessage();
         }
     }

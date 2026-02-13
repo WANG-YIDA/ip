@@ -1,5 +1,7 @@
 package app.models.tasks;
 
+import app.exceptions.InvalidPatternException;
+
 /**
  * Test stub representing a simple Todo task used in unit tests.
  */
@@ -33,4 +35,7 @@ public class StubTodoTask extends Task {
     public Boolean contains(String keyword) {
         return this.taskContent.contains(keyword);
     }
+
+    @Override
+    public void update(String updateDetails) throws InvalidPatternException {}
 }

@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import app.exceptions.InvalidPatternException;
+import app.parsers.UpdateDetailsParser;
+
 /**
  * Represents a task with a deadline (date and time).
  */
@@ -69,5 +72,25 @@ public class DeadlineTask extends Task {
     @Override
     public Boolean contains(String keyword) {
         return this.taskContent.contains(keyword);
+    }
+
+    @Override
+    public void update(String updateDetails) throws InvalidPatternException {
+        String newContent = UpdateDetailsParser.parseTaskContent(updateDetails);
+        LocalDateTime newDeadline = UpdateDetailsParser.parseDeadline(updateDetails);
+        boolean isUpdated = false;
+
+        if (newContent != null) {
+            this.taskContent = newContent;
+            isUpdated = true;
+        }
+        if (newDeadline != null) {
+            this.deadline = newDeadline;
+            isUpdated = true;
+        }
+
+        if (!isUpdated) {
+            throw new InvalidPatternException(" Please specify valid value(s) to update");
+        }
     }
 }

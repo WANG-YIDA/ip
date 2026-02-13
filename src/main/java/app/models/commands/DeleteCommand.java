@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
     public String execute(TaskList taskList) {
         // Delete a task
         try {
-            String deleteResult = taskList.delete(argument);
+            String deleteResult = taskList.deleteTask(argument);
             return deleteResult;
         } catch (InvalidPatternException | IOException e) {
             return e.getMessage();

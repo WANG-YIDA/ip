@@ -1,5 +1,7 @@
 package app.models.tasks;
 
+import app.exceptions.InvalidPatternException;
+
 /**
  * Abstract base for tasks (todo, deadline, event). Tracks completion state
  * and provides common formatting helpers.
@@ -44,6 +46,8 @@ public abstract class Task {
     }
 
     public abstract Boolean contains(String keyword);
+
+    public abstract void update(String updateDetails) throws InvalidPatternException;
 
     /**
      * Marks the task as completed.
