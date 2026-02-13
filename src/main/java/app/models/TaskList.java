@@ -103,7 +103,7 @@ public class TaskList {
             tasks.add(newTask);
             assert tasks.contains(newTask) : "Task should be in the list after adding";
 
-            TaskListStorage.writeTask(newTask, taskListFile);
+            TaskListStorage.writeNewTask(newTask, taskListFile);
             String taskView = newTask.printTask();
 
             return String.format(" Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list:)",
@@ -166,7 +166,7 @@ public class TaskList {
         if (fromIdx == -1 || toIdx == -1 || fromIdx > toIdx || fromIdx != lastFromIdx
                 || toIdx != lastToIdx) {
             throw new InvalidPatternException(
-                    " Please use pattern for Event task creation (e.g. event <task content> "
+                    " Please use valid pattern for Event task creation (e.g. event <task content> "
                             + " /from <start time> /to <end time>");
         }
 
@@ -259,7 +259,7 @@ public class TaskList {
      * @throws InvalidPatternException if the argument is invalid
      * @throws IOException             if writing to storage fails
      */
-    public String mark(String argument) throws InvalidPatternException, IOException {
+    public String markTask(String argument) throws InvalidPatternException, IOException {
         assert argument != null : "Argument cannot be null";
 
         if (argument.isEmpty()
@@ -285,7 +285,7 @@ public class TaskList {
      * @throws InvalidPatternException if the argument is invalid
      * @throws IOException             if writing to storage fails
      */
-    public String unmark(String argument) throws InvalidPatternException, IOException {
+    public String unmarkTask(String argument) throws InvalidPatternException, IOException {
         assert argument != null : "Argument cannot be null";
 
         if (argument.isEmpty()
@@ -311,7 +311,7 @@ public class TaskList {
      * @throws InvalidPatternException if the argument is invalid
      * @throws IOException             if writing to storage fails
      */
-    public String delete(String argument) throws InvalidPatternException, IOException {
+    public String deleteTask(String argument) throws InvalidPatternException, IOException {
         assert argument != null : "Argument cannot be null";
 
         if (argument.isEmpty()
@@ -328,5 +328,29 @@ public class TaskList {
             return String.format(" Noted. I've removed this task:\n \t%s\n Now you have %d tasks in the list.",
                     taskView, tasks.size());
         }
+    }
+
+    public String updateTask(String argument) throws InvalidPatternException, IOException {
+        String[] parts = argument.split(" ", 2);
+        if (parts.length != 2) {
+            throw new InvalidPatternException(" Please use valid pattern for update (e.g. update 1 /content quiz1)");
+        }
+
+        String index = parts[0].trim();
+        String updateDetails = parts[1].trim();
+
+        if (!TaskList.isNumeric(index)
+                || Integer.parseInt(index) > tasks.size()
+                || Integer.parseInt(index) <= 0){
+            throw new InvalidPatternException(" Please specify a valid task number to update:(");
+        }
+
+        int indexNum = Integer.parseInt(index) - 1;
+        Task taskToUpdate = tasks.get(indexNum);
+
+        taskToUpdate.update(updateDetails);
+        TaskListStorage.writeAllTasks(taskListFile, tasks);
+
+        return String.format(" OK, I've updated task %d to:\n \t%s", indexNum + 1, taskToUpdate.printTask());
     }
 }

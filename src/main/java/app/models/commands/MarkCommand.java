@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList taskList) {
         // Mark a task as done
         try {
-            String markResult = taskList.mark(argument);
+            String markResult = taskList.markTask(argument);
             return markResult;
         } catch (InvalidPatternException | IOException e) {
             return e.getMessage();

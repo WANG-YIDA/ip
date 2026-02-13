@@ -66,7 +66,7 @@ public class TaskListStorage {
      * @param taskListFile destination file
      * @throws IOException when writing fails
      */
-    public static void writeTask(Task task, File taskListFile) throws IOException {
+    public static void writeNewTask(Task task, File taskListFile) throws IOException {
         assert task != null : "Task to write cannot be null";
         assert taskListFile != null : "Task list file cannot be null";
 
