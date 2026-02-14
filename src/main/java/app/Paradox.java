@@ -12,7 +12,7 @@ public class Paradox {
     private TaskList taskList;
 
     /**
-     * Load tasks from the given file path.
+     * Loads tasks from the given file path.
      *
      * @param taskListPath path to the stored task list
      * @return welcome message on success, or an error message on failure
@@ -32,7 +32,7 @@ public class Paradox {
     }
 
     /**
-     * Parse and execute a single user input line.
+     * Parses and executes a single user input line.
      *
      * @param userInput raw user input
      * @return the result message (success or error) to show to the user

@@ -10,7 +10,7 @@ public class StubTodoTask extends Task {
     private final boolean isDone;
 
     /**
-     * Create a stub todo task.
+     * Creates a stub todo task.
      *
      * @param taskContent visible content
      * @param isDone      completion flag
