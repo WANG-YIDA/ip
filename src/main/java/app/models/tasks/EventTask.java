@@ -108,7 +108,7 @@ public class EventTask extends Task {
         }
 
         if (!isUpdated) {
-            throw new InvalidPatternException(" Please specify valid value(s) to update");
+            throw new InvalidPatternException(" Please specify valid value(s) to update >_<");
         }
     }
 }

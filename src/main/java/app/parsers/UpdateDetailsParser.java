@@ -24,7 +24,7 @@ public class UpdateDetailsParser {
             return null;
         }
         if (newContent.isEmpty()) {
-            throw new InvalidPatternException(" Please specify a new task content (e.g. /content quiz1)");
+            throw new InvalidPatternException(" Oops, please specify a new task content (e.g. /content quiz1)");
         }
 
         return newContent;
@@ -43,7 +43,7 @@ public class UpdateDetailsParser {
             return null;
         }
         if (newDeadlineStr.isEmpty()) {
-            throw new InvalidPatternException(" Please specify a new deadline (e.g. /deadline 2026-02-11 23:59)");
+            throw new InvalidPatternException(" Oops, please specify a new deadline (e.g. /deadline 2026-02-11 23:59)");
         }
 
         // parse deadline
@@ -54,7 +54,7 @@ public class UpdateDetailsParser {
             newDeadline = LocalDateTime.parse(newDeadlineStr, deadlineTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new InvalidPatternException(
-                    " Please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+                    " Oops, please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
         }
 
         return newDeadline;
@@ -73,7 +73,7 @@ public class UpdateDetailsParser {
             return null;
         }
         if (newStartTimeStr.isEmpty()) {
-            throw new InvalidPatternException(" Please specify a new start time (e.g. /deadline 2026-02-11 23:59)");
+            throw new InvalidPatternException(" Oops, please specify a new start time (e.g. /deadline 2026-02-11 23:59)");
         }
 
         // parse start time
@@ -84,7 +84,7 @@ public class UpdateDetailsParser {
             newStartTime = LocalDateTime.parse(newStartTimeStr, startTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new InvalidPatternException(
-                    " Please use start time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+                    " Oops, please use start time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
         }
 
         return newStartTime;
@@ -103,7 +103,7 @@ public class UpdateDetailsParser {
             return null;
         }
         if (newEndTimeStr.isEmpty()) {
-            throw new InvalidPatternException(" Please specify a new end time (e.g. /deadline 2026-02-11 23:59)");
+            throw new InvalidPatternException(" Oops, please specify a new end time (e.g. /deadline 2026-02-11 23:59)");
         }
 
         // parse end time
@@ -114,7 +114,7 @@ public class UpdateDetailsParser {
             newEndTime = LocalDateTime.parse(newEndTimeStr, endTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new InvalidPatternException(
-                    " Please use end time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+                    " Oops, please use end time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
         }
 
         return newEndTime;
@@ -127,7 +127,7 @@ public class UpdateDetailsParser {
 
         int start = updateDetails.indexOf(tag) + tag.length();
         if (start >= updateDetails.length() || updateDetails.charAt(start) != ' ') {
-            throw new InvalidPatternException(String.format(" Please specify a new value after %s", tag));
+            throw new InvalidPatternException(String.format(" Oops, please specify a new value after %s", tag));
         }
         int end = updateDetails.indexOf("/", start);
         if (end == -1) {

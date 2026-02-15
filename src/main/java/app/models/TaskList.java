@@ -80,9 +80,9 @@ public class TaskList {
         assert tasks != null : "Task list should be initialized";
 
         if (argument.isEmpty()) {
-            throw new InvalidPatternException(" Please specify more details:)");
+            throw new InvalidPatternException(" Please specify more details >_<");
         } else if (tasks.size() >= capacity) {
-            throw new RequestRejectedException(" Task list is full, cannot add new task:(");
+            throw new RequestRejectedException(" Task list is full, cannot add new task Orz");
         } else {
             Task newTask;
             switch (type) {
@@ -97,7 +97,7 @@ public class TaskList {
                 break;
             default:
                 throw new InvalidTaskTypeException(
-                        " I can only create one of these task types: todo, deadline, event");
+                        " I can only create one of these task types: todo, deadline, event :)");
             }
 
             tasks.add(newTask);
@@ -106,7 +106,7 @@ public class TaskList {
             TaskListStorage.writeNewTask(newTask, taskListFile);
             String taskView = newTask.printTask();
 
-            return String.format(" Got it. I've added this task:\n \t%s\n Now you have %d tasks in the list:)",
+            return String.format(" Copy. I've added this task:\n \t%s\n Now you have %d tasks in the list:)",
                     taskView, tasks.size());
         }
     }
@@ -124,7 +124,7 @@ public class TaskList {
         // Error Handling: Pattern Validation
         if (deadlineTaskParts.length != 2) {
             throw new InvalidPatternException(
-                    " Please use valid pattern for Deadline task creation (e.g. deadline <task content>"
+                    " Oops, please use valid pattern for Deadline task creation (e.g. deadline <task content>"
                             + " /by <deadline>");
         }
 
@@ -148,7 +148,7 @@ public class TaskList {
             deadline = LocalDateTime.parse(deadlineStr, deadlineTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new InvalidPatternException(
-                    " Please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+                    " Oops, please use deadline format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
         }
 
         return new DeadlineTask(deadlineTaskContent, deadline);
@@ -166,7 +166,7 @@ public class TaskList {
         if (fromIdx == -1 || toIdx == -1 || fromIdx > toIdx || fromIdx != lastFromIdx
                 || toIdx != lastToIdx) {
             throw new InvalidPatternException(
-                    " Please use valid pattern for Event task creation (e.g. event <task content> "
+                    " Oops, please use valid pattern for Event task creation (e.g. event <task content> "
                             + " /from <start time> /to <end time>");
         }
 
@@ -198,7 +198,7 @@ public class TaskList {
             endTime = LocalDateTime.parse(endTimeStr, eventTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new InvalidPatternException(
-                    " Please use event time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
+                    " Oops, please use event time format yyyy-MM-dd HH:mm (e.g. 2026-01-28 23:59)");
         }
 
         return new EventTask(eventTaskContent, startTime, endTime);
@@ -211,11 +211,11 @@ public class TaskList {
      */
     public String printList() {
         if (tasks.isEmpty()) {
-            return " No task in the list yet:)";
+            return " No task in the list yet. Take a break or get started by adding a new task:)";
         }
 
         StringBuilder taskListView = new StringBuilder();
-        taskListView.append(" Here are the tasks in your list:\n");
+        taskListView.append(" Sure! Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             String taskView = String.format(" \t%d.%s\n", i + 1, tasks.get(i).printTask());
             taskListView.append(taskView);
@@ -234,7 +234,7 @@ public class TaskList {
         assert keyword != null : "Keyword cannot be null";
 
         StringBuilder matchedTaskListView = new StringBuilder();
-        matchedTaskListView.append(" Here are the matching tasks in your list:\n");
+        matchedTaskListView.append(" Copy that. Here are the matching tasks in your list:\n");
         int matchedTaskIndex = 0;
         for (Task task : tasks) {
             if (task.contains(keyword)) {
@@ -244,7 +244,7 @@ public class TaskList {
         }
 
         if (matchedTaskIndex == 0) {
-            return " No matching task in your list";
+            return " Hey, I can;t find any matching task in the list XoX";
         }
 
         matchedTaskListView.append(String.format(" Total Number of Tasks: %d", matchedTaskIndex));
@@ -266,13 +266,13 @@ public class TaskList {
                 || !TaskList.isNumeric(argument)
                 || Integer.parseInt(argument.trim()) > tasks.size()
                 || Integer.parseInt(argument.trim()) <= 0) {
-            throw new InvalidPatternException(" Please specify a valid task number to mark:(");
+            throw new InvalidPatternException(" Oops, please specify a valid task number to mark:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             tasks.get(taskNum - 1).mark();
             TaskListStorage.writeAllTasks(taskListFile, tasks);
 
-            return String.format(" Nice! I've marked this task as done:\n \t%s",
+            return String.format(" Excellent! I've marked this task as done:\n \t%s",
                     tasks.get(taskNum - 1).printTask());
         }
     }
@@ -292,13 +292,13 @@ public class TaskList {
                 || !TaskList.isNumeric(argument)
                 || Integer.parseInt(argument.trim()) > tasks.size()
                 || Integer.parseInt(argument.trim()) <= 0) {
-            throw new InvalidPatternException(" Please specify a valid task number to unmark:(");
+            throw new InvalidPatternException(" Oops, please specify a valid task number to unmark:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             tasks.get(taskNum - 1).unmark();
             TaskListStorage.writeAllTasks(taskListFile, tasks);
 
-            return String.format(" OK, I've marked this task as not done yet:\n \t%s",
+            return String.format(" Alright, I've marked this task as not done yet:\n \t%s",
                     tasks.get(taskNum - 1).printTask());
         }
     }
@@ -318,14 +318,14 @@ public class TaskList {
                 || !TaskList.isNumeric(argument)
                 || Integer.parseInt(argument.trim()) > tasks.size()
                 || Integer.parseInt(argument.trim()) <= 0) {
-            throw new InvalidPatternException(" Please specify a valid task number to delete:(");
+            throw new InvalidPatternException(" Oops, please specify a valid task number to delete:(");
         } else {
             int taskNum = Integer.parseInt(argument.trim());
             String taskView = tasks.get(taskNum - 1).printTask();
             tasks.remove(taskNum - 1);
             TaskListStorage.writeAllTasks(taskListFile, tasks);
 
-            return String.format(" Noted. I've removed this task:\n \t%s\n Now you have %d tasks in the list.",
+            return String.format(" Ay ay! I've removed this task:\n \t%s\n Now you have %d tasks in the list.",
                     taskView, tasks.size());
         }
     }
@@ -341,7 +341,7 @@ public class TaskList {
     public String updateTask(String argument) throws InvalidPatternException, IOException {
         String[] parts = argument.split(" ", 2);
         if (parts.length != 2) {
-            throw new InvalidPatternException(" Please use valid pattern for update (e.g. update 1 /content quiz1)");
+            throw new InvalidPatternException(" Oops, please use valid pattern for update (e.g. update 1 /content quiz1)");
         }
 
         String index = parts[0].trim();
@@ -350,7 +350,7 @@ public class TaskList {
         if (!TaskList.isNumeric(index)
                 || Integer.parseInt(index) > tasks.size()
                 || Integer.parseInt(index) <= 0) {
-            throw new InvalidPatternException(" Please specify a valid task number to update:(");
+            throw new InvalidPatternException(" Oops, please specify a valid task number to update:(");
         }
 
         int indexNum = Integer.parseInt(index) - 1;
@@ -359,6 +359,6 @@ public class TaskList {
         taskToUpdate.update(updateDetails);
         TaskListStorage.writeAllTasks(taskListFile, tasks);
 
-        return String.format(" OK, I've updated task %d to:\n \t%s", indexNum + 1, taskToUpdate.printTask());
+        return String.format(" Roger that. I've updated task %d to:\n \t%s", indexNum + 1, taskToUpdate.printTask());
     }
 }

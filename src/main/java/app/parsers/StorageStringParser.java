@@ -51,7 +51,7 @@ public class StorageStringParser {
             taskToAdd = parseEventTaskStorage(isDone, taskContent, startTimeStr, endTimeStr);
             break;
         default:
-            throw new DataFormatException("Invalid Task Type");
+            throw new DataFormatException("Oops. Invalid Task Type:(");
         }
 
         return taskToAdd;
@@ -59,7 +59,7 @@ public class StorageStringParser {
 
     private static TodoTask parseTodoTaskStorage(Boolean isDone, String taskContent) throws DataFormatException {
         if (taskContent.isEmpty()) {
-            String errMsg = "Task Content Missing";
+            String errMsg = "Oops. Task Content Missing:(";
             throw new DataFormatException(errMsg);
         }
 
@@ -69,10 +69,10 @@ public class StorageStringParser {
     private static DeadlineTask parseDeadlineTaskStorage(Boolean isDone, String taskContent, String deadlineStr)
             throws DataFormatException {
         if (taskContent.isEmpty()) {
-            String errMsg = "Task Content Missing";
+            String errMsg = "Oops. Task Content Missing:(";
             throw new DataFormatException(errMsg);
         } else if (deadlineStr.isEmpty()) {
-            String errMsg = "Deadline Missing";
+            String errMsg = "Oops. Deadline Missing:(";
             throw new DataFormatException(errMsg);
         }
 
@@ -83,7 +83,7 @@ public class StorageStringParser {
                     "yyyy-MM-dd-HH-mm", Locale.ENGLISH);
             deadline = LocalDateTime.parse(deadlineStr, deadlineTimeFormatter);
         } catch (DateTimeParseException e) {
-            throw new DataFormatException("Invalid Deadline Time Format");
+            throw new DataFormatException("Oops. Invalid Deadline Time Format:(");
         }
 
         return new DeadlineTask(taskContent, deadline, isDone);
@@ -92,13 +92,13 @@ public class StorageStringParser {
     private static EventTask parseEventTaskStorage(Boolean isDone, String taskContent,
             String startTimeStr, String endTimeStr) throws DataFormatException {
         if (taskContent.isEmpty()) {
-            String errMsg = "Task Content Missing";
+            String errMsg = "Oops. Task Content Missing:(";
             throw new DataFormatException(errMsg);
         } else if (startTimeStr.isEmpty()) {
-            String errMsg = "Start Time Missing";
+            String errMsg = "Oops. Start Time Missing:(";
             throw new DataFormatException(errMsg);
         } else if (endTimeStr.isEmpty()) {
-            String errMsg = "End Time Missing";
+            String errMsg = "Oops. End Time Missing:(";
             throw new DataFormatException(errMsg);
         }
 
@@ -111,7 +111,7 @@ public class StorageStringParser {
             startTime = LocalDateTime.parse(startTimeStr, eventTimeFormatter);
             endTime = LocalDateTime.parse(endTimeStr, eventTimeFormatter);
         } catch (DateTimeParseException e) {
-            throw new DataFormatException("Invalid Event Time Format");
+            throw new DataFormatException("Oops. Invalid Event Time Format:(");
         }
 
         return new EventTask(taskContent, startTime, endTime, isDone);

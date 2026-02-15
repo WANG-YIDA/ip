@@ -22,12 +22,12 @@ public class Paradox {
         try {
             taskList = new TaskList(taskListPath);
         } catch (FileNotFoundException | DataFormatException e) {
-            String errMsg = String.format(" Error: %s. Please try again later:(", e.getMessage());
+            String errMsg = String.format(" Something went wrong: %s. Please try again later:(", e.getMessage());
             return errMsg;
         }
 
         // Print welcome message
-        String welcomeMessage = String.format(" Hi! I'm %s!\n What can I do for you:)", "Paradox");
+        String welcomeMessage = String.format(" Hi there! I'm %s!\n Where should be start:)", "Paradox");
         return welcomeMessage;
     }
 

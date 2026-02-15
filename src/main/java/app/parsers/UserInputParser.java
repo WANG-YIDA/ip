@@ -64,7 +64,7 @@ public class UserInputParser {
             command = new UpdateCommand(argument);
             break;
         default:
-            throw new InvalidCommandException(" Invalid Command:(");
+            throw new InvalidCommandException(" Huh? What does that mean ?o?");
         }
         return command;
     }

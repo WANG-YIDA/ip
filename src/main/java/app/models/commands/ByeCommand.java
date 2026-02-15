@@ -15,6 +15,6 @@ public class ByeCommand extends Command {
     @Override
     public String execute(TaskList taskList) {
         System.exit(0);
-        return "Bye! Hope to see you again soon :)";
+        return "See ya:)";
     }
 }
