@@ -27,7 +27,7 @@ public class Paradox {
         }
 
         // Print welcome message
-        String welcomeMessage = String.format(" Hi there! I'm %s!\n Where should be start:)", "Paradox");
+        String welcomeMessage = String.format(" Hi there! I'm %s!\n Where should be start today:)", "Paradox");
         return welcomeMessage;
     }
 

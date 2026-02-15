@@ -215,7 +215,7 @@ public class TaskList {
         }
 
         StringBuilder taskListView = new StringBuilder();
-        taskListView.append(" Sure! Here are the tasks in your list:\n");
+        taskListView.append(" Noted! Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             String taskView = String.format(" \t%d.%s\n", i + 1, tasks.get(i).printTask());
             taskListView.append(taskView);
@@ -341,7 +341,9 @@ public class TaskList {
     public String updateTask(String argument) throws InvalidPatternException, IOException {
         String[] parts = argument.split(" ", 2);
         if (parts.length != 2) {
-            throw new InvalidPatternException(" Oops, please use valid pattern for update (e.g. update 1 /content quiz1)");
+            throw new InvalidPatternException(" Oops, please use valid pattern for update i.e. use tags"
+                    + " '/content', '/deadline', '/startTime' and '/endTime' to update corresponding values :)");
+
         }
 
         String index = parts[0].trim();

@@ -73,7 +73,8 @@ public class UpdateDetailsParser {
             return null;
         }
         if (newStartTimeStr.isEmpty()) {
-            throw new InvalidPatternException(" Oops, please specify a new start time (e.g. /deadline 2026-02-11 23:59)");
+            throw new InvalidPatternException(
+                    " Oops, please specify a new start time (e.g. /deadline 2026-02-11 23:59)");
         }
 
         // parse start time

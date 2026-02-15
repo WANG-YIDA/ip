@@ -90,7 +90,9 @@ public class DeadlineTask extends Task {
         }
 
         if (!isUpdated) {
-            throw new InvalidPatternException(" Please specify valid value(s) to update >_<");
+            throw new InvalidPatternException(
+                    " Oops, please specify valid value(s) to update a deadline task"
+                    + " (e.g. update 1 /content quiz1 /deadline 2026-02-03 21:00)");
         }
     }
 }

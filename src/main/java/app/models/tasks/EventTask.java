@@ -108,7 +108,9 @@ public class EventTask extends Task {
         }
 
         if (!isUpdated) {
-            throw new InvalidPatternException(" Please specify valid value(s) to update >_<");
+            throw new InvalidPatternException(
+                    " Oops, please specify valid value(s) to update a event task (e.g. update 1 /content meeting"
+                    + " /startTime 2026-02-02 12:30 /endTime 2026-02-02 13:00)");
         }
     }
 }

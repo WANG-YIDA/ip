@@ -70,7 +70,8 @@ public class TodoTask extends Task {
         }
 
         if (!isUpdated) {
-            throw new InvalidPatternException(" Please specify valid value(s) to update >_<");
+            throw new InvalidPatternException(
+                    " Oops, please specify valid value(s) to update a todo task (e.g. update 1 /content quiz1");
         }
     }
 }
