@@ -7,6 +7,7 @@
     -fx-font-size: 16px;
     -fx-font-family: "Eagle Lake", serif;
     -fx-text-fill: #000000;
+    -fx-padding: 10px;
 
     /* subtle outer shadow for lift + soft inner shadow for depth */
     -fx-effect:
@@ -20,6 +21,7 @@
     -fx-font-size: 16px;
     -fx-font-family: "Eagle Lake", serif;
     -fx-text-fill: #000000;
+    -fx-padding: 10px;
 
     -fx-effect:
         dropshadow(gaussian, rgba(0,0,0,0.18), 8, 0.2, 0, 4),

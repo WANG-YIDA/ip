@@ -217,7 +217,7 @@ public class TaskList {
         StringBuilder taskListView = new StringBuilder();
         taskListView.append(" Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            String taskView = String.format(" %d.%s\n", i + 1, tasks.get(i).printTask());
+            String taskView = String.format(" \t%d.%s\n", i + 1, tasks.get(i).printTask());
             taskListView.append(taskView);
         }
         taskListView.append(String.format(" Total Number of Tasks: %d", tasks.size()));
@@ -238,7 +238,7 @@ public class TaskList {
         int matchedTaskIndex = 0;
         for (Task task : tasks) {
             if (task.contains(keyword)) {
-                String taskView = String.format(" %d.%s\n", ++matchedTaskIndex, task.printTask());
+                String taskView = String.format(" \t%d.%s\n", ++matchedTaskIndex, task.printTask());
                 matchedTaskListView.append(taskView);
             }
         }
