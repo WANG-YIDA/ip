@@ -25,7 +25,7 @@ public class UserInputParserTest {
             UserInputParser.parse("tod read book");
             fail("Expected InvalidCommandException");
         } catch (InvalidCommandException e) {
-            assertEquals(" Invalid Command:(", e.getMessage());
+            assertEquals(" Huh? What does that mean ?o?", e.getMessage());
         }
     }
 }
