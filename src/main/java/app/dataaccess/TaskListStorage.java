@@ -24,11 +24,16 @@ public class TaskListStorage {
      * @throws FileNotFoundException when the file does not exist
      * @throws DataFormatException   when the file contents are malformed
      */
-    public static List<Task> readTaskList(File taskListFile) throws FileNotFoundException, DataFormatException {
+    public static List<Task> readTaskList(File taskListFile) throws IOException, DataFormatException {
         assert taskListFile != null : "Task list file cannot be null";
 
+        if (taskListFile.getParentFile() != null) {
+            taskListFile.getParentFile().mkdirs();
+        }
+
         if (!taskListFile.exists()) {
-            throw new FileNotFoundException("x_x Task List Not Found");
+            taskListFile.createNewFile();
+            return new ArrayList<>();
         }
 
         // load tasks from source file

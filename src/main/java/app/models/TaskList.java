@@ -38,7 +38,7 @@ public class TaskList {
      * @throws FileNotFoundException if the file cannot be found
      * @throws DataFormatException   if the stored data is malformed
      */
-    public TaskList(String taskListPath) throws FileNotFoundException, DataFormatException {
+    public TaskList(String taskListPath) throws IOException, DataFormatException {
         assert taskListPath != null : "Task list path cannot be null";
         assert !taskListPath.trim().isEmpty() : "Task list path cannot be empty";
 

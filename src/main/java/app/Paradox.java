@@ -1,6 +1,7 @@
 package app;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.zip.DataFormatException;
 
 import app.models.TaskList;
@@ -21,7 +22,7 @@ public class Paradox {
         // create a task list and specific read source and write destination
         try {
             taskList = new TaskList(taskListPath);
-        } catch (FileNotFoundException | DataFormatException e) {
+        } catch (DataFormatException | IOException e) {
             String errMsg = String.format(" Something went wrong: %s. Please try again later:(", e.getMessage());
             return errMsg;
         }
